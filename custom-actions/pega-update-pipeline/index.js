@@ -24,10 +24,10 @@ async function runAction() {
       'client_secret': PEGA_DM_CLIENT_SECRET,
       'grant_type': 'client_credentials'
     });
-    
+
     var config = {
       method: 'post',
-      url: `${PEGA_DM_REST_URL}/PRRestService/oauth2/v1/token`,
+      url: `${PEGA_DM_REST_URL}/  oauth2/v1/token`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
