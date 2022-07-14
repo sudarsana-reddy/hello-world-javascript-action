@@ -18,7 +18,7 @@ async function runAction() {
     console.log(`PEGA_DM_CLIENT_ID: ${PEGA_DM_CLIENT_ID}`);
     console.log(`PEGA_DM_CLIENT_SECRET: ${PEGA_DM_CLIENT_SECRET}`);
     console.log(`PEGA_PIEPLINE_ID: ${PEGA_PIEPLINE_ID}`);
-
+    
     var data = qs.stringify({
       'client_id': PEGA_DM_CLIENT_ID,
       'client_secret': PEGA_DM_CLIENT_SECRET,
@@ -27,7 +27,7 @@ async function runAction() {
 
     var config = {
       method: 'post',
-      url: `${PEGA_DM_REST_URL}/  oauth2/v1/token`,
+      url: `${PEGA_DM_REST_URL}/oauth2/v1/token`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
