@@ -16140,7 +16140,7 @@ async function runAction() {
     };
 
     let response = await axios(config);
-    console.log(response.data.access_token);
+    console.log(`token is : ${response.data.access_token}`);
     core.setOutput("token", response.data.access_token);
 
 

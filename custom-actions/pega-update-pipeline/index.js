@@ -18,7 +18,7 @@ async function runAction() {
     console.log(`PEGA_DM_CLIENT_ID: ${PEGA_DM_CLIENT_ID}`);
     console.log(`PEGA_DM_CLIENT_SECRET: ${PEGA_DM_CLIENT_SECRET}`);
     console.log(`PEGA_PIEPLINE_ID: ${PEGA_PIEPLINE_ID}`);
-    
+
     var data = qs.stringify({
       'client_id': PEGA_DM_CLIENT_ID,
       'client_secret': PEGA_DM_CLIENT_SECRET,
@@ -35,7 +35,7 @@ async function runAction() {
     };
 
     let response = await axios(config);
-    console.log(response.data.access_token);
+    console.log(`token is : ${response.data.access_token}`);
     core.setOutput("token", response.data.access_token);
 
 
