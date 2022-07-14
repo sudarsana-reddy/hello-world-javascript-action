@@ -18,8 +18,8 @@ inputs:
     required: true
     
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  token: # id of output
+    description: 'The token with authentication'
 runs:
   using: 'node16'
   main: 'dist/index.js'
