@@ -1,0 +1,20 @@
+on: [push]
+
+jobs:
+  pega-update-pipeline:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Pega Pipeline update
+        id: pegaUpdate
+        uses: ./custom-actions/pega-update-pipeline
+        with:
+          PEGA_DM_REST_URL: ${{secrets.PEGA_DM_REST_URL}}
+          PEGA_DM_CLIENT_ID: ${{secrets.PEGA_DM_CLIENT_ID}}
+          PEGA_DM_CLIENT_SECRET: ${{secrets.PEGA_DM_CLIENT_SECRET}}
+          PEGA_PIEPLINE_ID: 'Pipeline-8F9ON'
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
