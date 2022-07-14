@@ -17,5 +17,5 @@ jobs:
           PEGA_DM_CLIENT_SECRET: ${{secrets.PEGA_DM_CLIENT_SECRET}}
           PEGA_PIEPLINE_ID: 'Pipeline-8F9ON'
       # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+      - name: Get the token
+        run: echo "The time was ${{ steps.hello.outputs.token }}"
