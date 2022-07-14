@@ -1,0 +1,25 @@
+name: 'Hello World'
+description: 'Pega Javascript Action'
+inputs:
+  PEGA_DM_REST_URL:  # Pega Url
+    description: 'Pega Rest URL'
+    required: true   
+
+  PEGA_DM_CLIENT_ID:  # Pega Url
+    description: 'PegaCleinT_id'
+    required: true    
+
+  PEGA_DM_CLIENT_SECRET:  # Pega Url
+    description: 'Pega Client Secret'
+    required: true
+    
+  PEGA_PIEPLINE_ID:  # Pega Url
+    description: 'Pega Pipeline Id'
+    required: true
+    
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
