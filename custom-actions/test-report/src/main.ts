@@ -67,7 +67,6 @@ class TestReporter {
     }
 
     core.info(`Check runs will be created with SHA=${this.context.sha}`)
-
     // Split path pattern by ',' and optionally convert all backslashes to forward slashes
     // fast-glob (micromatch) always interprets backslashes as escape characters instead of directory separators
     const pathsList = this.path.split(',')

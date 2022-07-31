@@ -41,9 +41,6 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directories
-jspm_packages/
-
 # TypeScript v1 declaration files
 typings/
 
@@ -72,31 +69,10 @@ typings/
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
 # OS metadata
 .DS_Store
 Thumbs.db
 
 # Ignore built ts files
-__tests__/runner/*
 lib/**/*
 
-# Project specific
-__tests__/__results__
