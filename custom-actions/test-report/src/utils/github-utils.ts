@@ -13,8 +13,8 @@ const asyncStream = promisify(stream.pipeline)
 export function getCheckRunContext(): {sha: string; runId: number} {
   console.log("getCheckRunContext")
   console.log(`github.context.eventName: ${github.context.eventName}`)
-  if (github.context.eventName === 'workflow_run') {
-    core.info('Action was triggered by workflow_run: using SHA and RUN_ID from triggering workflow')
+  if (github.context.eventName === 'workflow_run' || github.context.eventName === 'workflow_dispatch') {
+    core.info('Action was triggered by workflow_run/dispatch: using SHA and RUN_ID from triggering workflow')
     const event = github.context.payload as WorkflowRunEvent;
     if (!event.workflow_run) {
       throw new Error("Event of type 'workflow_run' is missing 'workflow_run' field")
