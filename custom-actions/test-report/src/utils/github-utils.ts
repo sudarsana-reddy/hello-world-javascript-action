@@ -2,7 +2,7 @@ import {createWriteStream} from 'fs'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import {GitHub} from '@actions/github/lib/utils'
-import {WorkflowRunEvent, PullRequestEvent} from '@octokit/webhooks-types'
+import {WorkflowRunEvent, SimplePullRequest} from '@octokit/webhooks-types'
 import * as stream from 'stream'
 import {promisify} from 'util'
 import got from 'got'
@@ -30,9 +30,9 @@ export function getCheckRunContext(): {sha: string; runId: number} {
   console.log(`github.context.runId: ${github.context.runId}`)
   if (github.context.payload.pull_request) {
     core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`)
-    const pr = github.context.payload.pull_request as PullRequestEvent;
+    const pr = github.context.payload.pull_request as SimplePullRequest;
     console.log(`pr: ${pr}`);
-    return {sha: pr.pull_request.head.sha, runId}
+    return {sha: pr.head.sha, runId}
   }
 
   console.log(`github.context.sha: ${github.context.sha}, RunId: ${runId}`);  
