@@ -2,6 +2,7 @@ import {createWriteStream} from 'fs'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import {GitHub} from '@actions/github/lib/utils'
+import {WorkflowRunEvent, PullRequestEvent} from '@octokit/webhooks-types'
 import * as stream from 'stream'
 import {promisify} from 'util'
 import got from 'got'
@@ -12,12 +13,12 @@ const asyncStream = promisify(stream.pipeline)
 export function getCheckRunContext(): {sha: string; runId: number} {
   if (github.context.eventName === 'workflow_run') {
     core.info('Action was triggered by workflow_run: using SHA and RUN_ID from triggering workflow')
-    const event = github.context.payload;
+    const event = github.context.payload as WorkflowRunEvent;
     if (!event.workflow_run) {
       throw new Error("Event of type 'workflow_run' is missing 'workflow_run' field")
     }
     return {
-      sha: event.payload.id,
+      sha: event.workflow_run.head_commit.id,
       runId: event.workflow_run.id
     }
   }
@@ -25,8 +26,8 @@ export function getCheckRunContext(): {sha: string; runId: number} {
   const runId = github.context.runId
   if (github.context.payload.pull_request) {
     core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`)
-    const pr = github.context.payload.pull_request;
-    return {sha: pr.head.sha, runId}
+    const pr = github.context.payload.pull_request as PullRequestEvent;
+    return {sha: pr.pull_request.head.sha, runId}
   }
 
   return {sha: github.context.sha, runId}
