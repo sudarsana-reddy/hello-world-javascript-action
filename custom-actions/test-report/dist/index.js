@@ -1192,6 +1192,9 @@ function getCheckRunContext() {
         if (!event.workflow_run) {
             throw new Error("Event of type 'workflow_run' is missing 'workflow_run' field");
         }
+        else {
+            core.info(`workflow_run: ${event.workflow_run}`);
+        }
         return {
             sha: event.workflow_run.head_commit.id,
             runId: event.workflow_run.id
@@ -1201,8 +1204,10 @@ function getCheckRunContext() {
     if (github.context.payload.pull_request) {
         core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`);
         const pr = github.context.payload.pull_request;
+        core.info(`pr: ${pr}`);
         return { sha: pr.pull_request.head.sha, runId };
     }
+    core.info(`github.context.sha: ${github.context.sha}, "-RunId: ${runId}`);
     return { sha: github.context.sha, runId };
 }
 exports.getCheckRunContext = getCheckRunContext;
