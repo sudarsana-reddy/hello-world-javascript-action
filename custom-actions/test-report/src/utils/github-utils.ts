@@ -16,6 +16,8 @@ export function getCheckRunContext(): {sha: string; runId: number} {
     const event = github.context.payload as WorkflowRunEvent;
     if (!event.workflow_run) {
       throw new Error("Event of type 'workflow_run' is missing 'workflow_run' field")
+    }else{
+      console.log(event.workflow_run)
     }
     return {
       sha: event.workflow_run.head_commit.id,
@@ -27,9 +29,11 @@ export function getCheckRunContext(): {sha: string; runId: number} {
   if (github.context.payload.pull_request) {
     core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`)
     const pr = github.context.payload.pull_request as PullRequestEvent;
+    console.log(pr);
     return {sha: pr.pull_request.head.sha, runId}
   }
 
+  console.log("github.context.sha:", github.context.sha, "-RunId:", runId);
   return {sha: github.context.sha, runId}
 }
 
