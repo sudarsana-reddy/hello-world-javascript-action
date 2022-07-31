@@ -1188,14 +1188,14 @@ const asyncStream = (0, util_1.promisify)(stream.pipeline);
 function getCheckRunContext() {
     console.log("getCheckRunContext");
     console.log(`github.context.eventName: ${github.context.eventName}`);
-    if (github.context.eventName === 'workflow_run' || github.context.eventName === 'workflow_dispatch') {
-        core.info('Action was triggered by workflow_run/dispatch: using SHA and RUN_ID from triggering workflow');
+    if (github.context.eventName === 'workflow_run') {
+        core.info('Action was triggered by workflow_run: using SHA and RUN_ID from triggering workflow');
         const event = github.context.payload;
         if (!event.workflow_run) {
             throw new Error("Event of type 'workflow_run' is missing 'workflow_run' field");
         }
         else {
-            core.info(`workflow_run: ${event.workflow_run}`);
+            console.log(`workflow_run: ${event.workflow_run}`);
         }
         return {
             sha: event.workflow_run.head_commit.id,
@@ -1207,7 +1207,7 @@ function getCheckRunContext() {
     if (github.context.payload.pull_request) {
         core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`);
         const pr = github.context.payload.pull_request;
-        core.info(`pr: ${pr}`);
+        console.log(`pr: ${pr}`);
         return { sha: pr.pull_request.head.sha, runId };
     }
     console.log(`github.context.sha: ${github.context.sha}, RunId: ${runId}`);
