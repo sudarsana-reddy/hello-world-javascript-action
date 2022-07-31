@@ -11,8 +11,8 @@ import got from 'got'
 const asyncStream = promisify(stream.pipeline)
 
 export function getCheckRunContext(): {sha: string; runId: number} {
-  core.startGroup("getCheckRunContext")
-  core.info(`github.context.eventName: ${github.context.eventName}`)
+  console.log("getCheckRunContext")
+  console.log(`github.context.eventName: ${github.context.eventName}`)
   if (github.context.eventName === 'workflow_run') {
     core.info('Action was triggered by workflow_run: using SHA and RUN_ID from triggering workflow')
     const event = github.context.payload as WorkflowRunEvent;
@@ -28,7 +28,7 @@ export function getCheckRunContext(): {sha: string; runId: number} {
   }
 
   const runId = github.context.runId
-  core.info(`github.context.runId: ${github.context.runId}`)
+  console.log(`github.context.runId: ${github.context.runId}`)
   if (github.context.payload.pull_request) {
     core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`)
     const pr = github.context.payload.pull_request as PullRequestEvent;
@@ -36,8 +36,7 @@ export function getCheckRunContext(): {sha: string; runId: number} {
     return {sha: pr.pull_request.head.sha, runId}
   }
 
-  core.info(`github.context.sha: ${github.context.sha}, "-RunId: ${runId}`);
-  core.endGroup();
+  console.log(`github.context.sha: ${github.context.sha}, RunId: ${runId}`);  
   return {sha: github.context.sha, runId}
 }
 

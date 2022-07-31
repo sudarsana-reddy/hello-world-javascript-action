@@ -1186,6 +1186,8 @@ const util_1 = __nccwpck_require__(3837);
 const got_1 = __importDefault(__nccwpck_require__(6162));
 const asyncStream = (0, util_1.promisify)(stream.pipeline);
 function getCheckRunContext() {
+    console.log("getCheckRunContext");
+    console.log(`github.context.eventName: ${github.context.eventName}`);
     if (github.context.eventName === 'workflow_run') {
         core.info('Action was triggered by workflow_run: using SHA and RUN_ID from triggering workflow');
         const event = github.context.payload;
@@ -1201,13 +1203,14 @@ function getCheckRunContext() {
         };
     }
     const runId = github.context.runId;
+    console.log(`github.context.runId: ${github.context.runId}`);
     if (github.context.payload.pull_request) {
         core.info(`Action was triggered by ${github.context.eventName}: using SHA from head of source branch`);
         const pr = github.context.payload.pull_request;
         core.info(`pr: ${pr}`);
         return { sha: pr.pull_request.head.sha, runId };
     }
-    core.info(`github.context.sha: ${github.context.sha}, "-RunId: ${runId}`);
+    console.log(`github.context.sha: ${github.context.sha}, RunId: ${runId}`);
     return { sha: github.context.sha, runId };
 }
 exports.getCheckRunContext = getCheckRunContext;
