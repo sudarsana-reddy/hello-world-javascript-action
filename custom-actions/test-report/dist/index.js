@@ -1433,7 +1433,7 @@ function getBasePath(path, trackedFiles) {
     if (max === '') {
         return undefined;
     }
-    const base = path.substr(0, path.length - max.length);
+    const base = path.substring(0, path.length - max.length);
     return base;
 }
 exports.getBasePath = getBasePath;
