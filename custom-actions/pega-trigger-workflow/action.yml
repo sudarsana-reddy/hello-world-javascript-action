@@ -1,4 +1,4 @@
-name: 'Hello World'
+name: 'Pega Trigger Pipeline'
 description: 'Pega Javascript Action'
 inputs:
   PEGA_DM_REST_URL:  # Pega Url
@@ -13,9 +13,18 @@ inputs:
     description: 'Pega Client Secret'
     required: true
     
-  PEGA_PIEPLINE_ID:  # Pega Url
-    description: 'Pega Pipeline Id'
+  PEGA_TARGET_APP:
+    description: "App to trigger pipeline for"
+    required: true    
+
+  PEGA_PROD_NAME:
+    description: "Product Rule Name to be deployed"
+    required: true    
+
+  PEGA_PROD_VERSION:
+    description: "Product Rule Version to be deployed"
     required: true
+    default: 01.01.01
     
 outputs:
   token: # id of output
