@@ -16142,7 +16142,7 @@ const core = __nccwpck_require__(4824);
 const github = __nccwpck_require__(6985);
 const axios = __nccwpck_require__(5866);
 const qs = __nccwpck_require__(4780);
-const {formatJson, logErrors} = __nccwpck_require__(2117)
+const { formatJson, logErrors } = __nccwpck_require__(2117)
 
 
 //pipeline-mapping.json should come from the calling workflow repo
@@ -16198,11 +16198,11 @@ async function runAction() {
 
     await getAccessToken();
     await updatePipeline();
-    let deploymentID = await triggerPipeline();    
+    let deploymentID = await triggerPipeline();
     await waitForDeploymentToComplete(deploymentID);
   } catch (error) {
     console.log(error.message)
-    core.setFailed(error.message);    
+    core.setFailed(error.message);
   }
 }
 
@@ -16296,8 +16296,6 @@ async function updatePipeline() {
       try {
         response = await axios(config);
         console.log("response is : ", formatJson(response.data));
-
-
       } catch (error) {
         if (error.response.status === 401) {
           console.log("Token has expired. Getting new token");
@@ -16315,7 +16313,8 @@ async function updatePipeline() {
       console.log("No Update required, skipping the step");
     }
   } catch (error) {
-    console.log("Error while updating the pipelline:", formatJson(error));
+    console.log("Error while updating the pipelline:", error.message);
+    logErrors(error);
     throw error;
   }
 }
@@ -16342,6 +16341,8 @@ async function triggerPipeline() {
       response = await axios(config);
       console.log(`response is : `, formatJson(response.data));
     } else {
+      console.log("Error while triggering the pipelline:", error.message);
+      logErrors(error);
       throw error;
     }
   }
@@ -16354,7 +16355,7 @@ async function waitForDeploymentToComplete(deploymentID) {
 
   let response = {}
   let deploymentStatus = "";
-  let isInProgress = true;  
+  let isInProgress = true;
   let totalTime = 0; // 1 minute 
   do {
     console.log(`Sleeping for ${IDLE_TIME_INTERVAL} minutes`)
@@ -16380,6 +16381,8 @@ async function waitForDeploymentToComplete(deploymentID) {
         response = await axios(config);
         console.log("response is : ", formatJson(response.data));
       } else {
+        console.log("Error while updating the pipelline:", error.message);
+        logErrors(error);
         throw error;
       }
     }
@@ -16393,7 +16396,7 @@ async function waitForDeploymentToComplete(deploymentID) {
       return;
     }
 
-  } while (totalTime <= PEGA_DEPLOYMENT_WAIT_TIME  && isInProgress);
+  } while (totalTime <= PEGA_DEPLOYMENT_WAIT_TIME && isInProgress);
 
   switch (deploymentStatus) {
     case 'Resolved-Completed':
