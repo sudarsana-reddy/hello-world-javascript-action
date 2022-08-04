@@ -18,7 +18,6 @@ const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL")) ;// dea
 
 //Log all details to console
 console.log(`PEGA_DM_REST_URL: ${PEGA_DM_REST_URL}`);
-console.log(`PEGA_TARGET_APP: ${PEGA_TARGET_APP}`);
 console.log(`PEGA_PROD_NAME: ${PEGA_PROD_NAME}`);
 console.log(`PEGA_PROD_VERSION: ${PEGA_PROD_VERSION}`);
 console.log(`PEGA_PIEPLINE_ID: ${PEGA_PIEPLINE_ID}`);
