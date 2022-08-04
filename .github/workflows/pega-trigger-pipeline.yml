@@ -1,4 +1,4 @@
-name: pega-update-pipeline
+name: pega-trigger-pipeline
 
 on: [workflow_dispatch]
 
