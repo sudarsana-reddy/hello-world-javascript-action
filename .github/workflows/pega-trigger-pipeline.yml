@@ -18,5 +18,5 @@ jobs:
           PEGA_TARGET_APP : 'MyAppA'
           PEGA_PROD_NAME: "MyAppA_With_MyAppB_Ruleset"
           PEGA_PROD_VERSION: "01.01.01"
-          PEGA_DEPLOYMENT_WAIT_TIME: 2
-          IDLE_TIME_INTERVAL: 1     
+          PEGA_DEPLOYMENT_WAIT_TIME: "2"
+          IDLE_TIME_INTERVAL: "1"
