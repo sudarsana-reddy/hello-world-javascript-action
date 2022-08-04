@@ -16,3 +16,5 @@ function formatJson(json) {
       }
     }
   }
+
+  module.exports = {formatJson, logErrors}
