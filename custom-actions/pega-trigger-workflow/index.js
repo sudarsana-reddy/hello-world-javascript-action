@@ -241,9 +241,9 @@ async function waitForDeploymentToComplete(deploymentID) {
         response = await axios(config);
         console.log("response is : ", formatJson(response.data));
       } else {
+        core.debug(error);
         console.log("Error while updating the pipelline:", error.message);
-        logErrors(error);
-        throw error;
+        throw logErrors(error);        
       }
     }
 
