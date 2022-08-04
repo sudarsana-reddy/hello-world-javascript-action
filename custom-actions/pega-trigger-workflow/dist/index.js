@@ -16389,7 +16389,7 @@ async function waitForDeploymentToComplete(deploymentID) {
     let manualSteps = response.data.taskList.filter(x => x.status === "Pending-Input");
     if (manualSteps.length > 0) {
       let manualStep = manualSteps[0];
-      console.log(`Approval is required for manual step: "${manualStep.taskType}" in stage: "${manualStep.stageName}"`)
+      console.log(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`)
       return;
     }
 
