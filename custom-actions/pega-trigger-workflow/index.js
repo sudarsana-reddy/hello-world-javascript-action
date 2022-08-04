@@ -6,7 +6,7 @@ const { formatJson, logErrors } = require('./utils')
 
 
 //pipeline-mapping.json should come from the calling workflow repo
-const pipelineMapping = require('./pipeline-mapping.json');
+const pipelineMapping = require('../../../pipeline-mapping.json');
 
 // PEGA CONNECTION DETAILS
 const PEGA_DM_REST_URL = core.getInput('PEGA_DM_REST_URL');
