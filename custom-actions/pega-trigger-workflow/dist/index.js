@@ -16202,7 +16202,7 @@ async function runAction() {
     await waitForDeploymentToComplete(deploymentID);
   } catch (error) {
     console.log(error.message)
-    core.setFailed(error.message);
+    core.setFailed(error.message);    
   }
 }
 
@@ -16400,9 +16400,11 @@ async function waitForDeploymentToComplete(deploymentID) {
       console.log("Deployment Successful");
       break;
     case 'Open-Queued':
+      core.warning("Deployment not started yet, check the previous deployment status");
       console.log("Deployment not started yet, check the previous deployment status");
       break;
     case 'Open-InProgress':
+      core.warning("Deployment is still in progress, even after 10 minutes");
       console.log("Deployment is still in progress, even after 10 minutes");
       break;
     case 'Open-Error' || 0:
@@ -16410,6 +16412,7 @@ async function waitForDeploymentToComplete(deploymentID) {
       let errrorMessages = await logErrors(response);
       throw errrorMessages;
     case 'Pending-Promotion':
+      core.warning("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level")
       console.log("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level");
       break;
     default:
