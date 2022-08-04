@@ -10,12 +10,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Pega Pipeline update
         id: pegaUpdate
-        uses: ./custom-actions/pega-update-pipeline
+        uses: ./custom-actions/pega-trigger-workflow
         with:
           PEGA_DM_REST_URL: ${{secrets.PEGA_DM_REST_URL}}
           PEGA_DM_CLIENT_ID: ${{secrets.PEGA_DM_CLIENT_ID}}
           PEGA_DM_CLIENT_SECRET: ${{secrets.PEGA_DM_CLIENT_SECRET}}
-          PEGA_PIEPLINE_ID: 'Pipeline-8F9ON'
-      # Use the output from the `hello` step
-      - name: Get the token
-        run: echo "The token is ${{ steps.pegaUpdate.outputs.token }}"
+          PEGA_TARGET_APP : 'MyAppA'
+          PEGA_PROD_NAME: "MyAppA_With_MyAppB_Ruleset"
+          PEGA_PROD_VERSION: "01.01.01"
+          PEGA_DEPLOYMENT_WAIT_TIME: 2
+          IDLE_TIME_INTERVAL: 1     
