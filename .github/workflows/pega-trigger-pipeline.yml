@@ -15,7 +15,7 @@ jobs:
           PEGA_DM_REST_URL: ${{secrets.PEGA_DM_REST_URL}}
           PEGA_DM_CLIENT_ID: ${{secrets.PEGA_DM_CLIENT_ID}}
           PEGA_DM_CLIENT_SECRET: ${{secrets.PEGA_DM_CLIENT_SECRET}}
-          PEGA_TARGET_APP : 'MyAppA'
+          PEGA_PIEPLINE_ID : 'Pipeline-QEKH0'
           PEGA_PROD_NAME: "MyAppA_With_MyAppB_Ruleset"
           PEGA_PROD_VERSION: "01.01.01"
           PEGA_DEPLOYMENT_WAIT_TIME: "2"

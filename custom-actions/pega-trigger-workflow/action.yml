@@ -13,8 +13,8 @@ inputs:
     description: 'Pega Client Secret'
     required: true
     
-  PEGA_TARGET_APP:
-    description: "App to trigger pipeline for"
+  PEGA_PIEPLINE_ID:
+    description: "Pipeline to trigger deployment"
     required: true    
 
   PEGA_PROD_NAME:

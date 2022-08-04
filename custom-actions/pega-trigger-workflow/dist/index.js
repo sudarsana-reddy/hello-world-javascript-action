@@ -15945,14 +15945,6 @@ function formatJson(json) {
 
 /***/ }),
 
-/***/ 6678:
-/***/ ((module) => {
-
-module.exports = eval("require")("../../../pipeline-mapping.json");
-
-
-/***/ }),
-
 /***/ 6167:
 /***/ ((module) => {
 
@@ -16144,23 +16136,17 @@ const axios = __nccwpck_require__(5866);
 const qs = __nccwpck_require__(4780);
 const { formatJson, logErrors } = __nccwpck_require__(2117)
 
-
-//pipeline-mapping.json should come from the calling workflow repo
-const pipelineMapping = __nccwpck_require__(6678);
-
 // PEGA CONNECTION DETAILS
 const PEGA_DM_REST_URL = core.getInput('PEGA_DM_REST_URL');
 const PEGA_DM_CLIENT_ID = core.getInput('PEGA_DM_CLIENT_ID');
 const PEGA_DM_CLIENT_SECRET = core.getInput('PEGA_DM_CLIENT_SECRET');
 
 // PEGA DEPLOY APP DETAILS
-const PEGA_TARGET_APP = core.getInput('PEGA_TARGET_APP');
+const PEGA_PIEPLINE_ID = core.getInput('PEGA_PIEPLINE_ID');
 const PEGA_PROD_NAME = core.getInput('PEGA_PROD_NAME');
 const PEGA_PROD_VERSION = core.getInput('PEGA_PROD_VERSION');
 const PEGA_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('PEGA_DEPLOYMENT_WAIT_TIME')); //default 10 MINUTES   
 const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL")) ;// deafult 1 minute
-//PEGA PIPELINE ID
-const PEGA_PIEPLINE_ID = pipelineMapping["PEGA_TARGET_APP"];
 
 //Log all details to console
 console.log(`PEGA_DM_REST_URL: ${PEGA_DM_REST_URL}`);
