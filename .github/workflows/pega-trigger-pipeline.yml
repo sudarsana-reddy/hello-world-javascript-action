@@ -3,7 +3,7 @@ name: pega-trigger-pipeline
 on: [workflow_dispatch]
 
 jobs:
-  pega-update-pipeline:
+  pega-trigger-pipeline:
     runs-on: ubuntu-latest   
     steps:
       - name: Checkout
