@@ -5,7 +5,7 @@ function formatJson(json) {
   async function logErrors(response) {
     let errors = response.data.errors;
     let errorSummary = "";
-    if (errors.lenth > 0) {
+    if (errors.length > 0) {
       await errors.forEach(x => errorSummary += (x.errorText + " and "));
       return { "message": errorSummary, "full_error": errors };
     }else{

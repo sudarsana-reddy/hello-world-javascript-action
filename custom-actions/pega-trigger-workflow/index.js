@@ -18,9 +18,9 @@ const PEGA_TARGET_APP = core.getInput('PEGA_TARGET_APP');
 const PEGA_PROD_NAME = core.getInput('PEGA_PROD_NAME');
 const PEGA_PROD_VERSION = core.getInput('PEGA_PROD_VERSION');
 const PEGA_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('PEGA_DEPLOYMENT_WAIT_TIME')); //default 10 MINUTES   
-const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL")) // deafult 1 minute
+const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL")) ;// deafult 1 minute
 //PEGA PIPELINE ID
-const PEGA_PIEPLINE_ID = pipelineMapping["PEGA_TARGET_APP"] || "Pipeline-QEKH0";
+const PEGA_PIEPLINE_ID = pipelineMapping["PEGA_TARGET_APP"];
 
 //Log all details to console
 console.log(`PEGA_DM_REST_URL: ${PEGA_DM_REST_URL}`);
@@ -112,7 +112,9 @@ async function getPipelineData() {
       response = await axios(config);
       console.log("response is : ", formatJson(response.data));
     } else {
-      throw error;
+      console.log("Error while getting the pipelline data:", error.message);
+      let errorMessage = await logErrors(error.response);    
+      throw errorMessage;      
     }
   }
   return response.data;
@@ -174,8 +176,8 @@ async function updatePipeline() {
     }
   } catch (error) {
     console.log("Error while updating the pipelline:", error.message);
-    logErrors(error);
-    throw error;
+    let errorMessage = await logErrors(error.response);    
+    throw errorMessage;
   }
 }
 
@@ -202,8 +204,8 @@ async function triggerPipeline() {
       console.log(`response is : `, formatJson(response.data));
     } else {
       console.log("Error while triggering the pipelline:", error.message);
-      logErrors(error);
-      throw error;
+      let errorMessages = logErrors(error.response);
+      throw errorMessages;
     }
   }
   return response.data.deploymentID;
@@ -240,10 +242,10 @@ async function waitForDeploymentToComplete(deploymentID) {
         config.headers.Authorization = `Bearer ${access_token}`;
         response = await axios(config);
         console.log("response is : ", formatJson(response.data));
-      } else {
-        core.debug(error);
-        console.log("Error while updating the pipelline:", error.message);
-        throw logErrors(error);        
+      } else {       
+        console.log("Error while getting the deployment status:", error.message);
+        let errorMessages = logErrors(error.response);        
+        throw errorMessages;
       }
     }
 
