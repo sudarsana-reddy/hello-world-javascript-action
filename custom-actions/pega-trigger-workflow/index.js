@@ -17,8 +17,8 @@ const PEGA_DM_CLIENT_SECRET = core.getInput('PEGA_DM_CLIENT_SECRET');
 const PEGA_TARGET_APP = core.getInput('PEGA_TARGET_APP');
 const PEGA_PROD_NAME = core.getInput('PEGA_PROD_NAME');
 const PEGA_PROD_VERSION = core.getInput('PEGA_PROD_VERSION');
-const PEGA_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('PEGA_DEPLOYMENT_WAIT_TIME')) || 10; //default 10 MINUTES   
-const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL")) || 1; // deafult 1 minute
+const PEGA_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('PEGA_DEPLOYMENT_WAIT_TIME')); //default 10 MINUTES   
+const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL")) // deafult 1 minute
 //PEGA PIPELINE ID
 const PEGA_PIEPLINE_ID = pipelineMapping["PEGA_TARGET_APP"] || "Pipeline-QEKH0";
 

@@ -25,10 +25,18 @@ inputs:
     description: "Product Rule Version to be deployed"
     required: true
     default: 01.01.01
+
+  PEGA_DEPLOYMENT_WAIT_TIME:
+    description: "Pega Deployment wait time"
+    required: true
+    default: "10"
+
+  WAIT_TIME_INTERVAL:
+    description: "Pega Deployment wait time"
+    required: true
+    default: "1"
     
-outputs:
-  token: # id of output
-    description: 'The token with authentication'
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
