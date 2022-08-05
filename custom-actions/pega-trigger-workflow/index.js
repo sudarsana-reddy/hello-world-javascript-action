@@ -48,7 +48,7 @@ let access_token = "";
 async function runAction() {
 
   try {
-
+    console.log(`Working Directory: ${process.cwd()}`);
     await getAccessToken();
     await updatePipeline();
     let deploymentID = await triggerPipeline();
