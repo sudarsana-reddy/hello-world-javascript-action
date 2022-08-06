@@ -192,13 +192,15 @@ async function isPipelineUpdateRequired(pipelineData){
     let existing_product_version = pipelineData.pipelineParameters.filter(item => item.name === "productVersion")[0];
     
 
-    if (existing_product_name.value != PEGA_PROD_NAME) {
+    if (existing_product_name.value !== PEGA_PROD_NAME) {
         isUpdateRequired = true;
+        console.log(`Update Required for Product Name. Existing product Name: "${existing_product_name}: and Required Product Name: "${PEGA_PROD_NAME}"`)
         existing_product_name.value = PEGA_PROD_NAME;
     }
 
-    if (existing_product_version.value != PEGA_PROD_VERSION) {
+    if (existing_product_version.value !== PEGA_PROD_VERSION) {
         isUpdateRequired = true;
+        console.log(`Update Required for Product Version. Existing product Name: "${existing_product_version}: and Required Product Name: "${PEGA_PROD_VERSION}"`)
         existing_product_version.value = PEGA_PROD_VERSION;
     }
 
