@@ -1,3 +1,4 @@
+const core = require('@actions/core');
 const {getAccessToken, triggerPipeline, updatePipeline, waitForDeploymentToComplete} = require('./lib')
 
 //main function (entry point)
