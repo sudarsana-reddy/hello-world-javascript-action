@@ -127,7 +127,7 @@ async function triggerPipeline() {
         }
     };
     response = await getResponse("TRIGGER_PIPELINE", config);
-    return response.deploymentID;
+    return response.data.deploymentID;
 }
 
 async function waitForDeploymentToComplete(deploymentID) {
