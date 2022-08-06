@@ -150,6 +150,7 @@ async function waitForDeploymentToComplete(deploymentID) {
 
         response = await getResponse("GET_DEPLOYMENT_STATUS", config);
         deploymentStatus = response.data.status;
+        console.log(`DeploymentStatus: ${deploymentStatus}`)
         isInProgress = (deploymentStatus === "Open-Queued" || deploymentStatus == "Open-InProgress") ? true : false;
         let manualSteps = response.data.taskList.filter(x => x.status === "Pending-Input");
         if (manualSteps.length > 0) {
