@@ -184,10 +184,10 @@ async function handleDeploymentStatus(deploymentStatus, response) {
             core.warning("Deployment is still in progress, even after 10 minutes");
             console.log("Deployment is still in progress, even after 10 minutes");
             break;
-        case 'Open-Error' || 0:
+        case 'Open-Error' || 0:            
             console.log("There is an error/rejection in the deployment, check the error and take corrective action.");
             let errrorMessages = await logErrors(response);
-            throw errrorMessages;
+            core.setFailed(errrorMessages.message);
         case 'Pending-Promotion':
             core.warning("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level")
             console.log("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level");
