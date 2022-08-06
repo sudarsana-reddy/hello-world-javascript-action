@@ -137,7 +137,7 @@ async function waitForDeploymentToComplete(deploymentID) {
         console.log(`DeploymentStatus: ${deploymentStatus}`)
         isInProgress = (deploymentStatus === "Open-Queued" || deploymentStatus == "Open-InProgress") ? true : false;
         let manualSteps = response.data.taskList.filter(x => x.status === "Pending-Input");
-        if (manualSteps.length > 0) {
+        if (manualSteps && manualSteps.length > 0) {
             let manualStep = manualSteps[0];
             console.log(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`)
             core.warning(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`);
@@ -181,7 +181,7 @@ async function isPipelineUpdateRequired(pipelineData){
     //Checking if updating pipelie is required.
     console.log(`Checking if updating pipelie is required`);
     let isUpdateRequired = false;
-    
+
     let existing_product_name = pipelineData.pipelineParameters.filter(item => item.name === "productName")[0];
     let existing_product_version = pipelineData.pipelineParameters.filter(item => item.name === "productVersion")[0];
     

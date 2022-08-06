@@ -143,7 +143,7 @@ async function waitForDeploymentToComplete(deploymentID) {
         console.log(`DeploymentStatus: ${deploymentStatus}`)
         isInProgress = (deploymentStatus === "Open-Queued" || deploymentStatus == "Open-InProgress") ? true : false;
         let manualSteps = response.data.taskList.filter(x => x.status === "Pending-Input");
-        if (manualSteps.length > 0) {
+        if (manualSteps && manualSteps.length > 0) {
             let manualStep = manualSteps[0];
             console.log(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`)
             core.warning(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`);
@@ -187,7 +187,7 @@ async function isPipelineUpdateRequired(pipelineData){
     //Checking if updating pipelie is required.
     console.log(`Checking if updating pipelie is required`);
     let isUpdateRequired = false;
-    
+
     let existing_product_name = pipelineData.pipelineParameters.filter(item => item.name === "productName")[0];
     let existing_product_version = pipelineData.pipelineParameters.filter(item => item.name === "productVersion")[0];
     
@@ -9340,20 +9340,18 @@ exports.debug = debug; // for test
 /***/ ((module) => {
 
 function formatJson(json) {
-    return JSON.stringify(json, null, 2);
+    return JSON.stringify(json, null, 1);
   }
-
-  
   
   async function logErrors(response) {
     let errors = response.data.errors;
     let errorSummary = "";
-    if (errors.length > 0) {
+    if (errors && errors.length > 0) {
       await errors.forEach(x => errorSummary += (x.errorText + " and "));
       return { "message": errorSummary, "full_error": errors };
     }else{
       errorTasks = response.data.taskList.filter(x=> x.status !== "Resolved-Completed");
-      if(errorTasks.length > 0){
+      if(errorTasks && errorTasks.length > 0){
         await errorTasks[0].errors.forEach(x => errorSummary += (x.errorMessage + " and "));
         return { "message": errorSummary};
       }
