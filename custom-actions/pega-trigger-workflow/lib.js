@@ -67,7 +67,7 @@ async function getAccessToken() {
 }
 
 async function getPipelineData() {
-    console.log(`Getting Pipeline Data for ${PEGA_PIEPLINE_ID}`)
+    console.log(`########Getting Pipeline Data for ${PEGA_PIEPLINE_ID}########`)
     let config = {
         method: 'get',
         url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}`,
@@ -83,7 +83,8 @@ async function updatePipeline() {
     let pipelineData = await getPipelineData();
 
     if (await isPipelineUpdateRequired(pipelineData)) {
-        console.log("Update is required for pipeline Data, updating", formatJson(pipelineData));
+        console.log("######## Update is required for pipeline Data, updating ########");
+        console.log(formatJson(pipelineData));
 
         let config = {
             method: 'put',
@@ -102,7 +103,7 @@ async function updatePipeline() {
 
 async function triggerPipeline() {
     let response = {};
-    console.log(`Triggering Deployment for ${PEGA_PIEPLINE_ID}`);
+    console.log(`########Triggering Deployment for ${PEGA_PIEPLINE_ID}########`);
     let config = {
         method: 'post',
         url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}/deployments`,
@@ -115,13 +116,13 @@ async function triggerPipeline() {
 }
 
 async function waitForDeploymentToComplete(deploymentID) {
-    console.log("Waiting for the deployment to complete or error out");
+    console.log("######## Waiting for the deployment to complete or error out ########");
     let response = {}
     let deploymentStatus = "";
     let isInProgress = true;
     let totalTime = 0; // 1 minute 
     do {
-        console.log(`Sleeping for ${WAIT_TIME_INTERVAL} minutes`)
+        console.log(`######## Sleeping for ${WAIT_TIME_INTERVAL} minutes ########`)
         await new Promise(resolve => setTimeout(resolve, WAIT_TIME_INTERVAL * 60 * 1000)); //sleep for the specified idle time
         totalTime += WAIT_TIME_INTERVAL;
         let config = {
@@ -139,7 +140,7 @@ async function waitForDeploymentToComplete(deploymentID) {
         let manualSteps = response.data.taskList.filter(x => x.status === "Pending-Input");
         if (manualSteps && manualSteps.length > 0) {
             let manualStep = manualSteps[0];
-            console.log(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`)
+            console.log(`######## Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}" ########`)
             core.warning(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`);
             return;
         }
@@ -150,26 +151,24 @@ async function waitForDeploymentToComplete(deploymentID) {
 }
 
 async function handleDeploymentStatus(deploymentStatus, response) {
+    let message = "";
     switch (deploymentStatus) {
         case 'Resolved-Completed':
-            console.log("Deployment Successful");
+            console.log("######## Deployment Successful ########");
             break;
         case 'Open-Queued':
-            core.warning("Deployment not started yet, check the previous deployment status");
-            console.log("Deployment not started yet, check the previous deployment status");
+            logWarning("######## Deployment not started yet, check the previous deployment status ########");
             break;
         case 'Open-InProgress':
-            core.warning("Deployment is still in progress, even after 10 minutes");
-            console.log("Deployment is still in progress, even after 10 minutes");
+            logWarning("######## Deployment is still in progress, even after 10 minutes. ########");
             break;
-        case 'Open-Error' || 'Resolved-Rejected':            
-            console.log("There is an error/rejection in the deployment, check the error and take corrective action.");
+        case 'Open-Error' || 'Resolved-Rejected':
+            console.log("######## There is an error/rejection in the deployment, check the error and take corrective action. ########");
             let errrorMessages = await logErrors(response);
             core.setFailed(errrorMessages.message);
             break;
         case 'Pending-Promotion':
-            core.warning("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level")
-            console.log("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level");
+            logWarning("######## Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level. ########");
             break;
         default:
             break;
@@ -177,24 +176,29 @@ async function handleDeploymentStatus(deploymentStatus, response) {
 
 }
 
-async function isPipelineUpdateRequired(pipelineData){   
+function logWarning(message) {
+    core.warning(message);
+    console.log(message);
+}
+
+async function isPipelineUpdateRequired(pipelineData) {
     //Checking if updating pipelie is required.
     console.log(`Checking if updating pipelie is required`);
     let isUpdateRequired = false;
 
     let existing_product_name = pipelineData.pipelineParameters.filter(item => item.name === "productName")[0];
     let existing_product_version = pipelineData.pipelineParameters.filter(item => item.name === "productVersion")[0];
-    
+
 
     if (existing_product_name.value !== PEGA_PROD_NAME) {
         isUpdateRequired = true;
-        console.log(`Update Required for Product Name. Existing product Name: "${existing_product_name}: and Required Product Name: "${PEGA_PROD_NAME}"`)
+        console.log(`########Update Required for Product Name. Existing product Name: "${existing_product_name}: and Required Product Name: "${PEGA_PROD_NAME}"########`)
         existing_product_name.value = PEGA_PROD_NAME;
     }
 
     if (existing_product_version.value !== PEGA_PROD_VERSION) {
         isUpdateRequired = true;
-        console.log(`Update Required for Product Version. Existing product Name: "${existing_product_version}: and Required Product Name: "${PEGA_PROD_VERSION}"`)
+        console.log(`########Update Required for Product Version. Existing product Name: "${existing_product_version}: and Required Product Name: "${PEGA_PROD_VERSION}"########`)
         existing_product_version.value = PEGA_PROD_VERSION;
     }
 
@@ -203,15 +207,15 @@ async function isPipelineUpdateRequired(pipelineData){
 
 async function getResponse(opreationName, config) {
     let response = {};
-    try {       
-        console.log(`getResponse: Triggering request for ${opreationName}`) ;
+    try {
+        console.log(`######## getResponse: Triggering request for ${opreationName} ########`);
         response = await axios(config);
         console.log("response is : ", formatJson(response.data));
     } catch (error) {
         if (error.response.status === 401) {
             console.log("Token has expired. Getting new token");
             await getAccessToken();
-            console.log(`Re-requesting the pipeline data for ${PEGA_PIEPLINE_ID}`);
+            console.log(`######## Re-requesting the pipeline data for ${PEGA_PIEPLINE_ID} ########`);
             config.headers.Authorization = `Bearer ${access_token}`;
             response = await axios(config);
             console.log("response is : ", formatJson(response.data));
@@ -225,4 +229,4 @@ async function getResponse(opreationName, config) {
     return response;
 }
 
-module.exports = { getAccessToken, updatePipeline, triggerPipeline, waitForDeploymentToComplete};
+module.exports = { getAccessToken, updatePipeline, triggerPipeline, waitForDeploymentToComplete };
