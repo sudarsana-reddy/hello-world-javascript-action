@@ -19,7 +19,7 @@ const PEGA_PIEPLINE_ID = core.getInput('PEGA_PIEPLINE_ID');
 const PEGA_PROD_NAME = core.getInput('PEGA_PROD_NAME');
 const PEGA_PROD_VERSION = core.getInput('PEGA_PROD_VERSION');
 const PEGA_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('PEGA_DEPLOYMENT_WAIT_TIME')); //default 10 MINUTES   
-const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL"));// deafult 1 minute
+const WAIT_TIME_INTERVAL = parseInt(core.getInput("WAIT_TIME_INTERVAL"));// deafult 1 minute
 
 //Log all details to console
 console.log(`PEGA_DM_REST_URL: ${PEGA_DM_REST_URL}`);
@@ -143,9 +143,9 @@ async function waitForDeploymentToComplete(deploymentID) {
     let isInProgress = true;
     let totalTime = 0; // 1 minute 
     do {
-        console.log(`Sleeping for ${IDLE_TIME_INTERVAL} minutes`)
-        await new Promise(resolve => setTimeout(resolve, IDLE_TIME_INTERVAL * 60 * 1000)); //sleep for the specified idle time
-        totalTime += IDLE_TIME_INTERVAL;
+        console.log(`Sleeping for ${WAIT_TIME_INTERVAL} minutes`)
+        await new Promise(resolve => setTimeout(resolve, WAIT_TIME_INTERVAL * 60 * 1000)); //sleep for the specified idle time
+        totalTime += WAIT_TIME_INTERVAL;
         let config = {
             method: 'get',
             url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}/deployments/${deploymentID}`,
