@@ -1,4 +1,4 @@
-const {getAccessToken, triggerPipeline, waitForDeploymentToComplete} = require('./lib')
+const {getAccessToken, triggerPipeline, updatePipeline, waitForDeploymentToComplete} = require('./lib')
 
 //main function (entry point)
 async function runAction() {
