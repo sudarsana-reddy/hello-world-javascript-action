@@ -182,6 +182,7 @@ async function handleDeploymentStatus(deploymentStatus, response) {
             console.log("There is an error/rejection in the deployment, check the error and take corrective action.");
             let errrorMessages = await logErrors(response);
             core.setFailed(errrorMessages.message);
+            break;
         case 'Pending-Promotion':
             core.warning("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level")
             console.log("Deployment is in Pending-Prmotion Status. Respective stakeholder need to promote to next level");
