@@ -88,7 +88,7 @@ async function getPipelineData() {
 async function updatePipeline() {
     let pipelineData = await getPipelineData();
 
-    if (isPipelineUpdateRequired(pipelineData)) {
+    if (await isPipelineUpdateRequired(pipelineData)) {
         console.log("Update is required for pipeline Data, updating", formatJson(pipelineData));
 
         let config = {
