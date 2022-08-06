@@ -1,6 +1,8 @@
 function formatJson(json) {
     return JSON.stringify(json, null, 2);
   }
+
+  
   
   async function logErrors(response) {
     let errors = response.data.errors;
