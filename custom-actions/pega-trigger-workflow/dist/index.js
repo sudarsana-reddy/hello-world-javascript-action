@@ -162,6 +162,7 @@ async function waitForDeploymentToComplete(deploymentID) {
         if (manualSteps.length > 0) {
             let manualStep = manualSteps[0];
             console.log(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`)
+            core.warning(`Approval is required for manual step: "${manualStep.taskLabel}" in stage: "${manualStep.stageName}"`);
             return;
         }
 
