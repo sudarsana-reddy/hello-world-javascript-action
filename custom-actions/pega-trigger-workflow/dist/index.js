@@ -202,8 +202,8 @@ async function handleDeploymentStatus(deploymentStatus, response) {
 
 async function getResponse(opreationName, config) {
     let response = {};
-    try {
-        console.log(opreationName);
+    try {       
+        console.log(`getResponse: Triggering request for ${opreationName}`) ;
         response = await axios(config);
         console.log("response is : ", formatJson(response.data));
     } catch (error) {
