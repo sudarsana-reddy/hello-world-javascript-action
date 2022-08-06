@@ -21,10 +21,6 @@ console.log(`PEGA_PROD_NAME: ${PEGA_PROD_NAME}`);
 console.log(`PEGA_PROD_VERSION: ${PEGA_PROD_VERSION}`);
 console.log(`PEGA_PIEPLINE_ID: ${PEGA_PIEPLINE_ID}`);
 
-const PEGA_AUTH_TOKEN_URL = `${PEGA_DM_REST_URL}/oauth2/v1/token`;
-const PEGA_PIPELINE_URL = `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}`;
-const PEGA_TRIGGER_DEPLOYMENT_URL = `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}/deployments`;
-
 const TASK_STATUSES = [
     "Open-Ready",
     "Open-InProgress",
@@ -57,7 +53,7 @@ async function getAccessToken() {
 
     let config = {
         method: 'post',
-        url: PEGA_AUTH_TOKEN_URL,
+        url: `${PEGA_DM_REST_URL}/oauth2/v1/token`,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -74,12 +70,12 @@ async function getPipelineData() {
     console.log(`Getting Pipeline Data for ${PEGA_PIEPLINE_ID}`)
     let config = {
         method: 'get',
-        url: PEGA_PIPELINE_URL,
+        url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}`,
         headers: {
             'Authorization': `Bearer ${access_token}`
         }
     };
-    let response = getResponse("GET_PIPELINE_DATA", config);
+    let response = await getResponse("GET_PIPELINE_DATA", config);
     return response.data;
 }
 
@@ -107,7 +103,7 @@ async function updatePipeline() {
 
         let config = {
             method: 'put',
-            url: PEGA_PIPELINE_URL,
+            url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}`,
             headers: {
                 'Authorization': `Bearer ${access_token}`
             },
@@ -125,7 +121,7 @@ async function triggerPipeline() {
     console.log(`Triggering Deployment for ${PEGA_PIEPLINE_ID}`);
     let config = {
         method: 'post',
-        url: PEGA_TRIGGER_DEPLOYMENT_URL,
+        url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}/deployments`,
         headers: {
             'Authorization': `Bearer ${access_token}`
         }
@@ -146,7 +142,7 @@ async function waitForDeploymentToComplete(deploymentID) {
         totalTime += IDLE_TIME_INTERVAL;
         let config = {
             method: 'get',
-            url: `${PEGA_TRIGGER_DEPLOYMENT_URL}/${deploymentID}`,
+            url: `${PEGA_DM_REST_URL}/DeploymentManager/v1/pipelines/${PEGA_PIEPLINE_ID}/deployments/${deploymentID}`,
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }
