@@ -88,23 +88,7 @@ async function getPipelineData() {
 async function updatePipeline() {
     let pipelineData = await getPipelineData();
 
-    //Checking if updating pipelie is required.
-    console.log(`Checking if updating pipelie is required`);
-    let existing_product_name = pipelineData.pipelineParameters.filter(item => item.name === "productName")[0];
-    let existing_product_version = pipelineData.pipelineParameters.filter(item => item.name === "productVersion")[0];
-    let isUpdateRequired = false;
-
-    if (existing_product_name.value != PEGA_PROD_NAME) {
-        isUpdateRequired = true;
-        existing_product_name.value = PEGA_PROD_NAME;
-    }
-
-    if (existing_product_version.value != PEGA_PROD_VERSION) {
-        isUpdateRequired = true;
-        existing_product_version.value = PEGA_PROD_VERSION;
-    }
-
-    if (isUpdateRequired) {
+    if (isPipelineUpdateRequired(pipelineData)) {
         console.log("Update is required for pipeline Data, updating", formatJson(pipelineData));
 
         let config = {
@@ -197,6 +181,28 @@ async function handleDeploymentStatus(deploymentStatus, response) {
             break;
     }
 
+}
+
+async function isPipelineUpdateRequired(pipelineData){   
+    //Checking if updating pipelie is required.
+    console.log(`Checking if updating pipelie is required`);
+    let isUpdateRequired = false;
+    
+    let existing_product_name = pipelineData.pipelineParameters.filter(item => item.name === "productName")[0];
+    let existing_product_version = pipelineData.pipelineParameters.filter(item => item.name === "productVersion")[0];
+    
+
+    if (existing_product_name.value != PEGA_PROD_NAME) {
+        isUpdateRequired = true;
+        existing_product_name.value = PEGA_PROD_NAME;
+    }
+
+    if (existing_product_version.value != PEGA_PROD_VERSION) {
+        isUpdateRequired = true;
+        existing_product_version.value = PEGA_PROD_VERSION;
+    }
+
+    return isUpdateRequired;
 }
 
 async function getResponse(opreationName, config) {
