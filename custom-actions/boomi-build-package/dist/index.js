@@ -8979,7 +8979,6 @@ const boomi_packages_file = "boomi-packages.json";
 const boomi_package_failed_components_file = "failed-components.txt";
 
 console.log(`Current Working Directoty: ${process.cwd()}`);
-fs.readdirSync(process.cwd()).forEach(x=> console.log(x));
 async function runAction() {
     let boomiPackageIds = [];   
 
