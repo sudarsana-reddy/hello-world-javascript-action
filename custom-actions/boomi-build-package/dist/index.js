@@ -8990,7 +8990,7 @@ async function runAction() {
             headers: getHeaders()
         };
 
-        const components = require(`./${BOOMI_COMPONENTS_JSON}`)
+        const components = require(`${process.cwd()}/${BOOMI_COMPONENTS_JSON}`)
 
         for (let index = 0; index < components.length; index++) {
             let component = components[index];
