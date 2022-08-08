@@ -9021,7 +9021,7 @@ async function runAction() {
     } finally {        
         fs.writeFileSync(boomi_packages_file, JSON.stringify(boomiPackageIds));
         if(hasFailures){
-            let failures = fs.readFileSync(boomi_package_failed_components_file)
+            let failures = fs.readFileSync(boomi_package_failed_components_file, "utf-8");
             core.setFailed(failures);
         }
     }
@@ -9032,15 +9032,6 @@ function getHeaders() {
     return {
         "Authorization": "Basic " + base64.encode(`${BOOMI_REST_USERNAME}:${BOOMI_REST_PASSWORD}`),
         "Content-Type": "application/json"
-    }
-}
-
-function isJson(response) {
-    try {
-        JSON.stringify(response);
-        return true;
-    } catch {
-        return false;
     }
 }
 
