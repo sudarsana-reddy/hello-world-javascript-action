@@ -8980,6 +8980,7 @@ const components = require(`./${BOOMI_COMPONENTS_JSON}`)
 const boomi_packages_file = "boomi-packages.json";
 const boomi_package_failed_components_file = "failed-components.txt";
 
+console.log(`Current Working Directoty: ${process.cwd()}`);
 async function runAction() {
     let boomiPackageIds = [];   
 
