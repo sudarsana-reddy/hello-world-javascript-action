@@ -41,7 +41,7 @@ async function runAction() {
                 boomiPackageIds.push(boomiPackage);
             } catch (error) {
                 hasFailures = true;
-                console.log(`Error: ${error.response.data}`);               
+                console.log(`Error: ${JSON.stringify(error.response.data)}`);         
                 let message = error.response.data.message ? `${componentId}:${error.response.data.message}\n` : `Packaging Failed for ${componentId}\n`;
                 console.log(message);
                 fs.appendFileSync(boomi_package_failed_components_file, message);                
