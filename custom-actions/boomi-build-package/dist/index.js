@@ -8975,8 +8975,6 @@ const BOOMI_REST_USERNAME = core.getInput('BOOMI_REST_USERNAME');
 const BOOMI_REST_PASSWORD = core.getInput('BOOMI_REST_PASSWORD');
 const BOOMI_COMPONENTS_JSON = core.getInput('BOOMI_COMPONENTS_JSON');
 
-const components = require(`./${BOOMI_COMPONENTS_JSON}`)
-
 const boomi_packages_file = "boomi-packages.json";
 const boomi_package_failed_components_file = "failed-components.txt";
 
@@ -8991,6 +8989,8 @@ async function runAction() {
             url: `${BOOMI_REST_URL}/${BOOMI_TFA_ACCOUNTID}/PackagedComponent`,
             headers: getHeaders()
         };
+
+        const components = require(`./${BOOMI_COMPONENTS_JSON}`)
 
         for (let index = 0; index < components.length; index++) {
             let component = components[index];
