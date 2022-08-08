@@ -7316,7 +7316,7 @@ const boomi_package_failed_components_file = "failed-components.json";
 
 async function runAction() {
     let boomiPackageIds = [];
-    let failedComponents = [];    
+    let failedComponents = [];
 
     try {
 
@@ -7337,24 +7337,26 @@ async function runAction() {
                 let packageId = response.data.packageId;
                 boomiPackage.packageId = packageId;
                 boomiPackageIds.push(boomiPackage);
-            } catch (error) {                
-                console.log(`Packaging Failed for ${componentId}`);                
-                failedComponents.push(componentId);
-                fs.appendFileSync(boomi_package_failed_components_file, componentId);
+            } catch (error) {
                 console.log(`Error: ${error}`)
+                let errorMessage = error.data.message;
+                let message = errorMessage ? `${componentId}:${errorMessage}` : `Packaging Failed for ${componentId}`;
+                console.log(message);
+                fs.appendFileSync(boomi_package_failed_components_file, message);
             }
 
         }
+
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
     } finally {
-        fs.writeFileSync(boomi_packages_file, JSON.stringify(boomiPackageIds));        
+        fs.writeFileSync(boomi_packages_file, JSON.stringify(boomiPackageIds));
     }
 }
 
 function getHeaders() {
-    return{
+    return {
         "Authorization": "Basic " + base64.encode(`${BOOMI_REST_USERNAME}:${BOOMI_REST_PASSWORD}`),
         "Content-Type": "application/json"
     }
