@@ -3,7 +3,6 @@ const { fail } = require('assert');
 const axios = require('axios');
 const base64 = require('base-64');
 const fs = require('fs');
-const fetch = require('node-fetch');
 
 const BOOMI_REST_URL = core.getInput('BOOMI_REST_URL');
 const BOOMI_TFA_ACCOUNTID = core.getInput('BOOMI_TFA_ACCOUNTID');
