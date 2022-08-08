@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const { fail } = require('assert');
 const axios = require('axios');
 const base64 = require('base-64');
 const fs = require('fs');
@@ -16,6 +17,7 @@ const boomi_package_failed_components_file = "failed-components.txt";
 console.log(`Current Working Directoty: ${process.cwd()}`);
 async function runAction() {
     let boomiPackageIds = [];   
+    let hasFailures = false;
 
     try {
 
@@ -39,10 +41,11 @@ async function runAction() {
                 boomiPackage.packageId = packageId;
                 boomiPackageIds.push(boomiPackage);
             } catch (error) {
+                hasFailures = true;
                 console.log(`Error: ${error.response.data}`);               
                 let message = error.response.data.message ? `${componentId}:${error.response.data.message}\n` : `Packaging Failed for ${componentId}\n`;
                 console.log(message);
-                fs.appendFileSync(boomi_package_failed_components_file, message);
+                fs.appendFileSync(boomi_package_failed_components_file, message);                
             }
 
         }
@@ -50,9 +53,14 @@ async function runAction() {
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
-    } finally {
+    } finally {        
         fs.writeFileSync(boomi_packages_file, JSON.stringify(boomiPackageIds));
+        if(hasFailures){
+            let failures = fs.readFileSync(boomi_package_failed_components_file)
+            core.setFailed(failures);
+        }
     }
+    
 }
 
 function getHeaders() {
