@@ -1,0 +1,27 @@
+name: 'Boomi Build Packages'
+description: 'Boomi Javascript Action'
+inputs:
+  BOOMI_REST_URL: 
+    description: 'Boomi Rest URL'
+    required: true   
+
+  BOOMI_TFA_ACCOUNTID: 
+    description: 'BOOMI_TFA_ACCOUNTID'
+    required: true 
+
+  BOOMI_REST_PASSWORD:  
+    description: 'Boomi Username'
+    required: true    
+
+  BOOMI_REST_PASSWORD: 
+    description: 'Boomi Password/apikey'
+    required: true 
+
+  BOOMI_COMPONENTS_JSON:
+    description: 'Boomi Components json'
+    required: true 
+    default: components.json
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
