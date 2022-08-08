@@ -7312,7 +7312,8 @@ const BOOMI_COMPONENTS_JSON = core.getInput('BOOMI_COMPONENTS_JSON');
 const boomi_packages_file = "boomi-packages.json";
 const boomi_package_failed_components_file = "failed-components.txt";
 
-console.log(`Current Working Directoty: ${process.cwd()}`);
+let currentWorkignDir = process.cwd();
+console.log(`Current Working Directoty: ${currentWorkignDir}`);
 async function runAction() {
     let boomiPackageIds = [];   
     let hasFailures = false;
@@ -7343,7 +7344,7 @@ async function runAction() {
                 console.log(`Error: ${JSON.stringify(error.response.data)}`);         
                 let message = error.response.data.message ? `${componentId}:${error.response.data.message}\n` : `Packaging Failed for ${componentId}\n`;
                 console.log(message);
-                fs.appendFileSync(boomi_package_failed_components_file, message);                
+                fs.appendFileSync(`${currentWorkignDir}/${boomi_package_failed_components_file}`, message);                
             }
 
         }
@@ -7352,9 +7353,9 @@ async function runAction() {
         console.log(error.message);
         core.setFailed(error.message);
     } finally {        
-        fs.writeFileSync(boomi_packages_file, JSON.stringify(boomiPackageIds));
+        fs.writeFileSync(`${currentWorkignDir}/${boomi_packages_file}`, JSON.stringify(boomiPackageIds));
         if(hasFailures){
-            let failures = fs.readFileSync(boomi_package_failed_components_file, "utf-8");
+            let failures = fs.readFileSync(`${currentWorkignDir}/${boomi_package_failed_components_file}`, "utf-8");
             core.setFailed(failures);
         }
     }
