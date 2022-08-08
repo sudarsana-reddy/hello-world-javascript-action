@@ -1,7 +1,9 @@
 # Boomi Generate Packages for the components
 
 This action generates packages for the given components (specified in components.json) and 
-generates a json file,boomi-packages.json ,with componentId(s) and their respective packageIds.
+generates 
+   # boomi-packages.json  - Json file with componentId(s) and their respective packageIds.
+   # failed-components.txt - List of failed components  with error messages
 
 ## BOOMI_REST_URL: 
     description: 'Boomi Rest URL'
