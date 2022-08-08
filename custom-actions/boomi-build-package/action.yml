@@ -9,7 +9,7 @@ inputs:
     description: 'BOOMI_TFA_ACCOUNTID'
     required: true 
 
-  BOOMI_REST_PASSWORD:  
+  BOOMI_REST_USERNAME:  
     description: 'Boomi Username'
     required: true    
 
