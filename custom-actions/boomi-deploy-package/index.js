@@ -45,10 +45,10 @@ async function runAction() {
             try {
                 config.data = boomiPackageDeploy;
                 let response = await axios(config);
-                console.log(`Response: ${response.data}`);
-                let deploymentId = response.data.deploymentId;
+                console.log(`Response: ${JSON.stringify(response.data)}`);
+                let deploymentId = response.data.deploymentId;               
                 console.log(`deploymentId: ${deploymentId}`);
-                let successfulPackage = {"packageId": packageId, "deploymentId": deploymentId};
+                let successfulPackage = {"packageId": packageId, "deployment": response.data };
                 successfulPackages.push(successfulPackage);
             } catch (error) {
                 hasFailures = true;               
