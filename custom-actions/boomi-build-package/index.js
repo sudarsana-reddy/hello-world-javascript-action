@@ -31,13 +31,15 @@ async function runAction() {
         for (let index = 0; index < components.length; index++) {
             let component = components[index];
             let componentId = component.componentId
-            let boomiPackage = { "componentId": componentId, "packageId": "" };
+            let boomiPackage = { "componentId": componentId, "packageId": "", "response": {} };
 
             try {
                 config.data = component;
                 let response = await axios(config);
+                console.log(`Response: ${JSON.stringify(response.data)}`);                
                 let packageId = response.data.packageId;
                 boomiPackage.packageId = packageId;
+                boomiPackage.response = response.data;
                 boomiPackageIds.push(boomiPackage);
             } catch (error) {
                 hasFailures = true;
