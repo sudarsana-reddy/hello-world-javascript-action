@@ -1,0 +1,16 @@
+{
+  "name": "boomi-deploy-package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "axios": "^0.27.2",
+    "base-64": "^1.0.0"
+  }
+}
