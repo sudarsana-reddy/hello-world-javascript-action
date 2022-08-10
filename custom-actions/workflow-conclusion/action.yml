@@ -1,12 +1,11 @@
-name: 'Boomi Build Packages'
-description: 'Boomi Javascript Action'
+name: 'Workflow Status'
+description: 'Workflow Status'
 inputs:
   TOKEN: 
-    description: 'Boomi Rest URL'
+    description: 'GitHub Token'
     required: true 
-    default: ${{ github.token }}  
+    default: ${{ github.token }} 
 
-  
 runs:
   using: 'node16'
   main: 'dist/index.js'
