@@ -21,7 +21,8 @@ jobs:
         echo ${{ job.status }}
 
   workflow-status:
-     runs-on: ubuntu-latest   
+     runs-on: ubuntu-latest
+     needs: [Pass-Job, Fail-Job]
      steps:
      - name: Checkout
         uses: actions/checkout@v3
