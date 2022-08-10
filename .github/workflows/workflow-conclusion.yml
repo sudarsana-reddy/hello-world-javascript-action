@@ -19,16 +19,3 @@ jobs:
       if: always()
       run:
         echo ${{ job.status }}
-    - name: GitHub Script
-      if: always()
-      uses: actions/github-script@v6.1.0
-      with:
-        # The script to run
-        script: |
-         console.log("Executing Github script");
-         let jobs =  github.actions.listJobsForWorkflowRun({
-            repo: context.repo.repo,
-            run_id: github.run_id
-            })
-          jobs.forEach(job=> console.log(JSON.stringify(job)))
-    
