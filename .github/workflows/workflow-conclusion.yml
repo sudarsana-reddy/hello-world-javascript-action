@@ -24,7 +24,7 @@ jobs:
       run: |
          error_message="This is an error message"
          echo "::error:: $error_message"
-         echo "::set-ouput name=error_message::$error_message"
+         echo "::set-output name=error_message::$error_message"
          exit 1
     - name: Print job status
       if: always()
