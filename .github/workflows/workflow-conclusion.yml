@@ -1,12 +1,7 @@
 name: workflow-conclusion
 
-on: 
-  
-  push:
-    branches:
-      - main
-    paths:
-      - custom-actions/workflow-conclusion/**
+on:  
+  push:   
   workflow_dispatch:
 
 
