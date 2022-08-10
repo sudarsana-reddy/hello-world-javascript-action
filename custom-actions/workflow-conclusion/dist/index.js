@@ -9668,8 +9668,6 @@ const core = __nccwpck_require__(4824);
 const github = __nccwpck_require__(6985);
 const Context = __nccwpck_require__(9309);
 
-
-
 async function runAction() {
     let token = core.getInput('TOKEN');
     let octokit = github.getOctokit(token);

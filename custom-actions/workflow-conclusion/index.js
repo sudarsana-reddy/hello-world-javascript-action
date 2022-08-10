@@ -2,8 +2,6 @@ const core = require('@actions/core');
 const github = require('@actions/github/lib/github');
 const Context = require('@actions/github/lib/context');
 
-
-
 async function runAction() {
     let token = core.getInput('TOKEN');
     let octokit = github.getOctokit(token);
