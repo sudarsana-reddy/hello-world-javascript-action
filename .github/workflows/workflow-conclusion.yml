@@ -19,8 +19,10 @@ jobs:
         
   Fail-Job:
     runs-on: ubuntu-latest   
+    id: fail_job
     steps:
     - name: Error Step
+      id: error_step
       run: |
          error_message="This is an error message"
          echo "::error:: $error_message"
@@ -36,6 +38,9 @@ jobs:
      needs: [Pass-Job, Fail-Job]
      if: always()
      steps:
+     - name: Echo the error message
+       run: |
+          echo ${{ jobs.fail_job.steps.error_step.outputs.error_message }}
      - name: Checkout
        uses: actions/checkout@v3
      - name: List Jobs of the current workflow
