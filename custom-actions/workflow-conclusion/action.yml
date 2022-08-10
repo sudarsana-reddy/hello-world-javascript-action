@@ -1,0 +1,12 @@
+name: 'Boomi Build Packages'
+description: 'Boomi Javascript Action'
+inputs:
+  TOKEN: 
+    description: 'Boomi Rest URL'
+    required: true 
+    default: ${{ github.token }}  
+
+  
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
