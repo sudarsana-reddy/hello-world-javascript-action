@@ -13,14 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Print job status
-      run:
+      run: |
         echo ${{ job.status }}
+       
         
   Fail-Job:
     runs-on: ubuntu-latest   
     steps:
     - name: Error Step
-      run: exit 1
+      run: |
+         error_message="This is an error message"
+         echo "::error:: $error_message"
+         echo "::set-ouput name=error_message::$error_message"
     - name: Print job status
       if: always()
       run:
