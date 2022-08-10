@@ -19,3 +19,9 @@ jobs:
       if: always()
       run:
         echo ${{ job.status }}
+
+  workflow-status:
+     runs-on: ubuntu-latest   
+    steps:
+    - name: List Jobs of the current workflow
+      uses: ./custom-actions/workflow-conclusion     
