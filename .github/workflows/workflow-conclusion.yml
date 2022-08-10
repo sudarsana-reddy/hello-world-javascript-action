@@ -22,6 +22,6 @@ jobs:
 
   workflow-status:
      runs-on: ubuntu-latest   
-    steps:
-    - name: List Jobs of the current workflow
-      uses: ./custom-actions/workflow-conclusion     
+     steps:
+     - name: List Jobs of the current workflow
+       uses: ./custom-actions/workflow-conclusion     
