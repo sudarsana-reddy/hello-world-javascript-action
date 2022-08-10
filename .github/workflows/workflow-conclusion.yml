@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'custom-actions/workflow-conclusion/**'
+      - '.github/workflows/workflow-conclusion.yml'
   workflow_dispatch:
 
 
