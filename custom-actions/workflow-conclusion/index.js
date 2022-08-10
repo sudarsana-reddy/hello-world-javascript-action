@@ -9,6 +9,7 @@ async function runAction() {
     let octokit = github.getOctokit(token);
     let context = new Context.Context();
     let jobs = await octokit.rest.actions.listJobsForWorkflowRun({
+        owner: context.owner,
         repo: context.repo,
         run_id: context.runId
     })
