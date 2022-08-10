@@ -8,9 +8,12 @@ async function runAction() {
     let token = core.getInput('TOKEN');
     let octokit = github.getOctokit(token);
     let context = new Context.Context();
+    console.log("owner: ", context.repo.owner)
+    console.log("repo: ", context.repo.repo)
+    console.log("run_id: ", context.runId)
     let jobs = await octokit.rest.actions.listJobsForWorkflowRun({
-        owner: context.owner,
-        repo: context.repo,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
         run_id: context.runId
     })
     
