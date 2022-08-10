@@ -11,8 +11,7 @@ jobs:
         echo ${{ job.status }}
         
   Fail-Job:
-    runs-on: ubuntu-latest
-    continue-on-error: true
+    runs-on: ubuntu-latest   
     steps:
     - name: Error Step
       run: exit 1
