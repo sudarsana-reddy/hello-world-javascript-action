@@ -18,8 +18,7 @@ jobs:
        
         
   Fail-Job:
-    runs-on: ubuntu-latest   
-    id: fail_job
+    runs-on: ubuntu-latest       
     steps:
     - name: Error Step
       id: error_step
@@ -40,7 +39,7 @@ jobs:
      steps:
      - name: Echo the error message
        run: |
-          echo ${{ jobs.fail_job.steps.error_step.outputs.error_message }}
+          echo ${{ jobs.Fail-Job.steps.error_step.outputs.error_message }}
      - name: Checkout
        uses: actions/checkout@v3
      - name: List Jobs of the current workflow
