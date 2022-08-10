@@ -17,9 +17,9 @@ async function runAction() {
         run_id: context.runId
     })
 
-    let jobs = response.data.jobs;
-    console.log("Jobs: ", JSON.stringify(jobs, null, 2));
-    jobs.forEach(job =>  console.log(JSON.stringify(job, null, 2)));
+    // let jobs = response.data.jobs;
+    console.log("Jobs: ", JSON.stringify(response, null, 2));
+    // jobs.forEach(job =>  console.log(JSON.stringify(job, null, 2)));
 }
 
 runAction();
