@@ -9685,12 +9685,11 @@ async function runAction() {
 
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
-    jobs.forEach(job =>  console.log(JSON.stringify(job, null, 2)));
+    let jobsWithConclusions= jobs.filter(job => job.conclusion !== null);
+    jobsWithConclusions.forEach(job=> console.log(`Name: ${job.name} - Conclusion: ${job.conclusion} - status: ${job.status}`));
 }
 
 runAction();
-
-
 })();
 
 module.exports = __webpack_exports__;
