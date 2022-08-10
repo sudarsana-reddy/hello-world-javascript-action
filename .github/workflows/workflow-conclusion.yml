@@ -1,6 +1,11 @@
 name: workflow-conclusion
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - **/workflow-conclusion/**
+
 
 jobs:
   Pass-Job:
