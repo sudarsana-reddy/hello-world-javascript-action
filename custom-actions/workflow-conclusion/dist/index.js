@@ -9677,14 +9677,15 @@ async function runAction() {
     console.log("owner: ", context.repo.owner)
     console.log("repo: ", context.repo.repo)
     console.log("run_id: ", context.runId)
-    let jobs = await octokit.rest.actions.listJobsForWorkflowRun({
+    let response = await octokit.rest.actions.listJobsForWorkflowRun({
         owner: context.repo.owner,
         repo: context.repo.repo,
         run_id: context.runId
     })
-    
+
+    let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
-    jobs.forEach(job => console.log(JSON.stringify(job, null, 2)));
+    jobs.forEach(job =>  console.log(JSON.stringify(job, null, 2)));
 }
 
 runAction();
