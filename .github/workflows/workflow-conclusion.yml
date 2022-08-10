@@ -1,0 +1,22 @@
+name: workflow-conclusion
+
+on: [workflow_dispatch]
+
+jobs:
+  Pass-Job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print job status
+      run:
+        echo ${{ job.status }}
+        
+   Fail-Job:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+    - name: Error Step
+      run: exit 1
+    - name: Print job status
+      run:
+        echo ${{ job.status }}
+    
