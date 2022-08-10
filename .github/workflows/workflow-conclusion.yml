@@ -10,7 +10,7 @@ jobs:
       run:
         echo ${{ job.status }}
         
-   Fail-Job:
+  Fail-Job:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
