@@ -1,7 +1,9 @@
 name: workflow-conclusion
 
 on:  
-  push:   
+  push:
+    paths:
+      - 'custom-actions/workflow-conclusion/**'
   workflow_dispatch:
 
 
