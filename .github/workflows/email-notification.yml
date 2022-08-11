@@ -1,0 +1,16 @@
+name: email-notification
+
+on:  
+  push:
+    paths:
+      - 'custom-actions/email-notification/**'
+      - '.github/workflows/email-notification.yml'
+
+jobs:
+  email-notification:
+     runs-on: ubuntu-latest
+     steps:   
+     - name: Checkout
+       uses: actions/checkout@v3
+     - name: echo the wokflow url
+       uses: ./custom-actions/email-notification
