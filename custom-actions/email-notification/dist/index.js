@@ -22628,8 +22628,8 @@ const Context = __nccwpck_require__(9309);
 const nodemailer = __nccwpck_require__(4526);
 const fs = __nccwpck_require__(7147);
 
-console.log(`current directory: ${process.cwd()}`);
-const email_template_file = `./custom-actions/email-notification/templates/email-template.html`;
+console.log("executing directory: ", __dirname);
+const email_template_file = __nccwpck_require__.ab + "email-template.html";
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
@@ -22693,7 +22693,7 @@ async function getWorkflowRunURL() {
 }
 
 async function getEmailContent(workflowRunURL) {
-    let emailContent = fs.readFileSync(email_template_file, 'utf-8');
+    let emailContent = fs.readFileSync(__nccwpck_require__.ab + "email-template.html", 'utf-8');
     emailContent = emailContent.replace("{{owner_name}}", organization)
         .replace("{{repo_name}}", repoName)
         .replace("{{workflow_name}}", workflow_name)
