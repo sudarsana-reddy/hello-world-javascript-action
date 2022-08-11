@@ -1,6 +1,7 @@
 name: email-notification
 
 on:  
+  wokflow_dispatch:
   push:
     paths:
       - 'custom-actions/email-notification/**'
