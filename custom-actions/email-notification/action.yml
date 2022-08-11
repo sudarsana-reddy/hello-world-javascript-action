@@ -6,6 +6,32 @@ inputs:
     required: true 
     default: ${{ github.token }} 
 
+  STATUS: 
+    description: 'Job Token'
+    required: true
+
+  SMTP_HOST: 
+    description: 'SMTP Host'
+    required: true 
+    default: "smtp.office365.com"
+
+  SMTP_PORT: 
+    description: 'SMTP Port'
+    required: true
+    default: "587"
+
+  USERNAME: 
+    description: 'Username'
+    required: true     
+
+  PASSWORD: 
+    description: 'Password'
+    required: true
+
+  TO: 
+    description: 'To Email Addresses'
+    required: true
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
