@@ -69,11 +69,11 @@ async function getWorkflowRunURL() {
 
 async function getEmailContent(workflowRunURL) {
     let emailContent = fs.readFileSync(email_template_file, 'utf-8');
-    emailContent = emailContent.replace("{{owner_name}}", organization)
-        .replace("{{repo_name}}", repoName)
-        .replace("{{workflow_name}}", workflow_name)
-        .replace("{{status}}", status)
-        .replace("{{workflow_url}}", workflowRunURL);
+    emailContent = emailContent.replace("{{ORGANIZATION}}", organization)
+        .replace("{{REPO_NAME}}", repoName)
+        .replace("{{WORKFLOW_NAME}}", workflow_name)
+        .replace("{{JOB_STATUS}}", status)
+        .replace("{{WORKFLOW_URL}}", workflowRunURL);
     return emailContent;
 }
 
