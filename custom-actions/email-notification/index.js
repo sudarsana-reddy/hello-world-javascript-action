@@ -24,7 +24,7 @@ async function runAction() {
     try {
         let workflowRunURL = await getWorkflowRunURL();
         console.log("workflow run html url: ", workflowRunURL);
-        let emailContent = await getEmailContent();
+        let emailContent = await getEmailContent(workflowRunURL);
         console.log("Email Content:", emailContent);
         await sendEmail(emailContent);
     } catch (error) {
@@ -68,7 +68,7 @@ async function getWorkflowRunURL() {
     return workflowRun.data.html_url;
 }
 
-async function getEmailContent() {
+async function getEmailContent(workflowRunURL) {
     let emailContent = fs.readFileSync(email_template_file, 'utf-8');
     emailContent = emailContent.replace("{{owner_name}}", organization)
         .replace("{{repo_name}}", repoName)
