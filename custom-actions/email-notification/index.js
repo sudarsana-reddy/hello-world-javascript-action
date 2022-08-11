@@ -11,9 +11,10 @@ async function runAction() {
         repo: context.repo.repo,
         run_id: context.runId
     });
-    workflowRun.status
-    console.log("workflow run url: ", workflowRun.url); 
-    console.log("workflow run status: ",  workflowRun.status);   
+    
+    console.log("workflow data: ", JSON.stringify(workflowRun.data, null, 2)); 
+    console.log("workflow run url: ", workflowRun.data.url); 
+    // console.log("workflow run status: ",  workflowRun.status);   
 }
 
 runAction();
