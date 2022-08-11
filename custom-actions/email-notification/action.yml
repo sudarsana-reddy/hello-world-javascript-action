@@ -1,0 +1,11 @@
+name: 'Workflow Status'
+description: 'Workflow Status'
+inputs:
+  TOKEN: 
+    description: 'GitHub Token'
+    required: true 
+    default: ${{ github.token }} 
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
