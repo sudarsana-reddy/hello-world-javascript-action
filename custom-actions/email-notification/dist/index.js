@@ -22694,10 +22694,10 @@ async function getWorkflowRunURL() {
 async function getEmailContent(workflowRunURL) {
     let emailContent = fs.readFileSync(__nccwpck_require__.ab + "email-template.html", 'utf-8');
     emailContent = emailContent.replace("{{ORGANIZATION}}", organization)
-        .replace("{{REPO_NAME}}", repoName)
-        .replace("{{WORKFLOW_NAME}}", workflow_name)
-        .replace("{{JOB_STATUS}}", status)
-        .replace("{{WORKFLOW_URL}}", workflowRunURL);
+        .replaceAll("{{REPO_NAME}}", repoName)
+        .replaceAll("{{WORKFLOW_NAME}}", workflow_name)
+        .replaceAll("{{JOB_STATUS}}", status)
+        .replaceAll("{{WORKFLOW_URL}}", workflowRunURL);
     return emailContent;
 }
 
