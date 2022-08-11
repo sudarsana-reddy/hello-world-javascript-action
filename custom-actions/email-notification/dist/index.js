@@ -22648,8 +22648,7 @@ async function runAction() {
     try {
         let workflowRunURL = await getWorkflowRunURL();
         console.log("workflow run html url: ", workflowRunURL);
-        let emailContent = await getEmailContent(workflowRunURL);
-        console.log("Email Content:", emailContent);
+        let emailContent = await getEmailContent(workflowRunURL);        
         await sendEmail(emailContent);
     } catch (error) {
         console.log(error.message);
