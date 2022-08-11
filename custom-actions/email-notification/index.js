@@ -4,7 +4,8 @@ const Context = require('@actions/github/lib/context');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 
-const email_template_file = "./templates/email-template.html";
+console.log(`current directory: ${process.cwd()}`);
+const email_template_file = `./templates/email-template.html`;
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
@@ -21,10 +22,10 @@ let workflow_name = context.workflow;
 
 async function runAction() {
     try {
-        // let workflowRunURL = await getWorkflowRunURL();
-        // console.log("workflow run html url: ", workflowRunURL);
+        let workflowRunURL = await getWorkflowRunURL();
+        console.log("workflow run html url: ", workflowRunURL);
         let emailContent = await getEmailContent();
-        // console.log("Email Content:", emailContent);
+        console.log("Email Content:", emailContent);
         await sendEmail(emailContent);
     } catch (error) {
         console.log(error.message);
