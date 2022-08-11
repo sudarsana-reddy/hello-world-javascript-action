@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 
 console.log(`current directory: ${process.cwd()}`);
-const email_template_file = `./templates/email-template.html`;
+const email_template_file = `./custom-actions/email-notification/templates/email-template.html`;
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
