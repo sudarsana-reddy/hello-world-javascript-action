@@ -22637,11 +22637,13 @@ let smtp_port = core.getInput('SMTP_PORT');
 let username = core.getInput('USERNAME');
 let password = core.getInput('PASSWORD');
 let to_email = core.getInput("TO");
+let cc_email = core.getIDToken("CC");
 
 let context = new Context.Context();
 let repoName = context.repo.repo;
 let organization = context.repo.owner;
 let workflow_name = context.workflow;
+let ACTOR = context.actor;
 
 
 async function runAction() {
@@ -22667,8 +22669,9 @@ async function sendEmail(emailContent) {
     });
 
     let message = {
-        from: `GitHub Notiofications ${username}`,
+        from: `GitHub Notifications ${username}`,
         to: to_email,
+        cc: cc_email,
         subject: `${organization}/${repoName} - ${workflow_name}: ${status}`,
         html: emailContent
     }
