@@ -20,11 +20,11 @@ inputs:
     required: true
     default: "587"
 
-  USERNAME: 
+  SMTP_USERNAME: 
     description: 'Username'
     required: true     
 
-  PASSWORD: 
+  SMTP_PASSWORD: 
     description: 'Password'
     required: true
 
