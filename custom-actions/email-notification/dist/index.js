@@ -22634,8 +22634,8 @@ let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
 let smtp_port = core.getInput('SMTP_PORT');
-let username = core.getInput('USERNAME');
-let password = core.getInput('PASSWORD');
+let username = core.getInput('SMTP_USERNAME');
+let password = core.getInput('SMTP_PASSWORD');
 let to_email = core.getInput("TO");
 let cc_email = core.getIDToken("CC");
 
@@ -22644,7 +22644,6 @@ let repoName = context.repo.repo;
 let organization = context.repo.owner;
 let workflow_name = context.workflow;
 let ACTOR = context.actor;
-
 
 async function runAction() {
     try {
