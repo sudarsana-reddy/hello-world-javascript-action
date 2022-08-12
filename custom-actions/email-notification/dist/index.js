@@ -22637,18 +22637,18 @@ let smtp_port = core.getInput('SMTP_PORT');
 let username = core.getInput('SMTP_USERNAME');
 let password = core.getInput('SMTP_PASSWORD');
 let to_email = core.getInput("TO");
-let cc_email = core.getIDToken("CC");
+let cc_email = core.getInput("CC");
 
 let context = new Context.Context();
 let repoName = context.repo.repo;
 let organization = context.repo.owner;
 let workflow_name = context.workflow;
-let ACTOR = context.actor;
+
 
 async function runAction() {
     try {
         let workflowRunURL = await getWorkflowRunURL();
-        console.log("workflow run html url: ", workflowRunURL);
+        console.log("workflow run html url: ", workflowRunURL);      
         let emailContent = await getEmailContent(workflowRunURL);        
         await sendEmail(emailContent);
     } catch (error) {
