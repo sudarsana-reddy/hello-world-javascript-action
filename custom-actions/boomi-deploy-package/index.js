@@ -9,9 +9,10 @@ const BOOMI_REST_USERNAME = core.getInput('BOOMI_REST_USERNAME');
 const BOOMI_REST_PASSWORD = core.getInput('BOOMI_REST_PASSWORD');
 const BOOMI_PACKAGES_JSON = core.getInput('BOOMI_PACKAGES_JSON') || "boomi-packages.json";
 const BOOMI_ENVIRONMENT_ID = core.getInput('BOOMI_ENVIRONMENT_ID');
+const BOOMI_ENVIRONMENT = core.getInput('BOOMI_ENVIRONMENT');
 
-const boomi_packages_file = "deployment-successful-packages.json";
-const boomi_deployment_failed_packages_file = "deployment-failed-packages.txt";
+const boomi_packages_file = `${BOOMI_ENVIRONMENT}-deployment-successful-packages.json`;
+const boomi_deployment_failed_packages_file = `${BOOMI_ENVIRONMENT}-deployment-failed-packages.txt`;
 
 let currentWorkignDir = process.cwd();
 console.log(`Current Working Directoty: ${currentWorkignDir}`);

@@ -22,6 +22,10 @@ inputs:
     required: true 
     default: boomi-packages.json
 
+  BOOMI_ENVIRONMENT: 
+    description: 'BOOMI Environment'
+    required: true
+
   BOOMI_ENVIRONMENT_ID: 
     description: 'BOOMI Environment Id'
     required: true
