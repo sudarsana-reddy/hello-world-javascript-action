@@ -22,3 +22,4 @@ jobs:
         USERNAME: "asreddy@live.com"
         PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         TO: "asreddy@live.com"
+        CC: "asreddy@live.com"
