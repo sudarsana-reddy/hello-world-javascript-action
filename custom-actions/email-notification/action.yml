@@ -32,6 +32,10 @@ inputs:
     description: 'To Email Addresses'
     required: true
 
+  CC: 
+    description: 'CC Email Addresses'
+    required: true
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
