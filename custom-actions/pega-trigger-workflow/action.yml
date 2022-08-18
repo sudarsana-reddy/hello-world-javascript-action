@@ -32,7 +32,7 @@ inputs:
     default: "10"
 
   IDLE_TIME_INTERVAL:
-    description: "Pega Deployment wait time"
+    description: "Idle time before getting the status"
     required: true
     default: "1"
     
