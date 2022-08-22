@@ -24,8 +24,8 @@ let workflow_name = context.workflow;
 async function runAction() {
     try {
         let workflowRunURL = await getWorkflowRunURL();
-        console.log("workflow run html url: ", workflowRunURL);      
-        let emailContent = await getEmailContent(workflowRunURL);        
+        console.log("workflow run html url: ", workflowRunURL);
+        let emailContent = await getEmailContent(workflowRunURL);
         await sendEmail(emailContent);
     } catch (error) {
         console.log(error.message);
@@ -36,7 +36,7 @@ async function runAction() {
 async function sendEmail(emailContent) {
     let transporter = nodemailer.createTransport({
         host: smtp_host,
-        port: smtp_port,        
+        port: smtp_port,
         auth: {
             user: username,
             pass: password
@@ -76,14 +76,39 @@ async function getEmailContent(workflowRunURL) {
         .replaceAll("{{WORKFLOW_NAME}}", workflow_name)
         .replaceAll("{{JOB_STATUS}}", status)
         .replaceAll("{{WORKFLOW_URL}}", workflowRunURL)
-        .replaceAll("\"{{RESULTS}}\"", JSON.stringify([
-            {
-                "name": "Job1",
-                "annotations": "This has a filed message"
-            }
-        ]));
+        .replaceAll("{{FAILED_JOBS}}", await getFailedJobs());
     console.log(emailContent);
     return emailContent;
+
+
+}
+
+async function getFailedJobs() {
+    let resultRows = "";
+    let jobData = await getJobData();
+    for (let job of jobData) {
+        let trData = `<tr>
+                        <td>${job.name}}</td>
+                        <td>${job.annotations}}</td>
+                    </tr>`;
+
+        resultRows += trHtml + "\n";
+    }
+
+    return resultRows;
+}
+
+async function getJobData() {
+    return [
+        {
+            "name": "Job1",
+            "annotations": "Message1"
+        },
+        {
+            "name": "Job2",
+            "annotations": "Message2"
+        }
+    ]
 }
 
 runAction();

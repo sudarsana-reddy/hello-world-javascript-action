@@ -10,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body ng-app="app" ng-controller="githubResultsCtrl">
+<body>
 
     <div class="container">
 
@@ -37,10 +37,7 @@
                                     <th>Messages</th>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="jobAnnotation in jobAnnotations">
-                                        <td>{{jobAnnotation.name}}</td>
-                                        <td>{{jobAnnotation.annotations}}</td>
-                                    </tr>
+                                  {{FAILED_JOBS}}
                                 </tbody>
                             </table>
                         </td>
@@ -50,25 +47,7 @@
         </div>
     </div>
 
-    <script>
-        var RESULTS = "{{RESULTS}}"
-        // var RESULTS = [
-        //     {
-        //         "name": "Job1",
-        //         "annotations": "This has a filed message"
-        //     }
-        // ]
-    </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-
-    <script>
-        var app = angular.module('app', []);
-        app.controller('githubResultsCtrl', function ($scope) {
-            $scope.jobAnnotations = RESULTS;
-        });
-    </script>
-
+   
 </body>
 
 </html>
