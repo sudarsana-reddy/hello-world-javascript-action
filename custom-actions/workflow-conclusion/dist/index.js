@@ -9685,6 +9685,8 @@ async function runAction() {
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
     let jobsWithConclusions = jobs.filter(job => job.conclusion !== null);
 
+    let jobStatuses =[];
+
     for (let index = 0; index < jobsWithConclusions.length; index++) {
         let job = jobsWithConclusions[index];
         let jobName = job.name;
@@ -9710,8 +9712,13 @@ async function runAction() {
         };
         console.log(`Name: ${jobName} - Conclusion: ${jobConclusion} - Status: ${jobStatus}`);
         console.log(`${annotatiionMessages}`);
-    };
 
+        jobStatuses.push({
+            "name": job.name,
+            "annotations": annotatiionMessages
+        })
+    };
+    console.log(JSON.stringify(jobStatuses, null, 2));
 }
 
 runAction();
