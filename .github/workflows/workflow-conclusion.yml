@@ -45,4 +45,5 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v3
      - name: List Jobs of the current workflow
+       if: always()
        uses: ./custom-actions/workflow-conclusion
