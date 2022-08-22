@@ -15,30 +15,39 @@
     <div class="container">
 
         <div class="panel-group" style="width:500px">
+
             <div class="panel panel-default">
                 <div class="panel-heading"><img class="manImg" src="GitHub-Mark-32px.png">
                     {{ORGANIZATION}}/{{REPO_NAME}} - {{WORKFLOW_NAME}}: {{JOB_STATUS}}</div>
                 <div class="panel-body" style="text-align: center;">
                     <a href="{{WORKFLOW_URL}}" target="_blank">
-                        <button style="background-color:darkgreen;height: 40px; color: white;">View workflow
-                            run</button>
+                        <button style="background-color:darkgreen;height: 40px; color: white;">View workflow  run</button>
                     </a>
                 </div>
             </div>
+
+            <div class="panel panel-default">
+                <table class="table table-responsive table-borderless">
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <table class="table table-bordered" style="border-width: medium;">
+                                    <thead>
+                                        <th>Job Name</th>
+                                        <th>Messages</th>
+                                    </thead>
+                                    <tbody>
+                                        {{FAILED_JOBS}}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
-        <div class="panel-group" style="width:500px">
-            <table class="table table-responsive table-borderless">
-                <thead>
-                    <th>Job Name</th>
-                    <th>Messages</th>
-                </thead>
-                <tbody>
-                    {{FAILED_JOBS}}
-                </tbody>
-
-            </table>
-        </div>
     </div>
 
 
