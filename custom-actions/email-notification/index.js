@@ -75,7 +75,13 @@ async function getEmailContent(workflowRunURL) {
         .replaceAll("{{REPO_NAME}}", repoName)
         .replaceAll("{{WORKFLOW_NAME}}", workflow_name)
         .replaceAll("{{JOB_STATUS}}", status)
-        .replaceAll("{{WORKFLOW_URL}}", workflowRunURL);
+        .replaceAll("{{WORKFLOW_URL}}", workflowRunURL)
+        .replaceAll("\"{{RESULTS}}\"", JSON.stringify([
+            {
+                "name": "Job1",
+                "annotations": "This has a filed message"
+            }
+        ]));
     return emailContent;
 }
 

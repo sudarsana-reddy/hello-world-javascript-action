@@ -10,23 +10,64 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body ng-app="app" ng-controller="githubResultsCtrl">
 
     <div class="container">
 
         <div class="panel-group" style="width:500px">
             <div class="panel panel-default">
-                <div class="panel-heading"><img class="manImg" src="GitHub-Mark-32px.png"> {{ORGANIZATION}}/{{REPO_NAME}}
+                <div class="panel-heading"><img class="manImg" src="GitHub-Mark-32px.png">
+                    {{ORGANIZATION}}/{{REPO_NAME}}
                     - {{WORKFLOW_NAME}}: {{JOB_STATUS}}</div>
-                        <div class="panel-body" style="text-align: center;">
-                            <a href="{{WORKFLOW_URL}}" target="_blank">
-                                <button style="background-color:darkgreen;height: 40px; color: white;">View workflow run
-                                </button>
-                            </a>
-                        </div>
+                <div class="panel-body" style="text-align: center;">
+                    <a href="{{WORKFLOW_URL}}" target="_blank">
+                        <button style="background-color:darkgreen;height: 40px; color: white;">View workflow run
+                        </button>
+                    </a>
                 </div>
-            </div>
+            <!-- </div> -->
+      
+            <table class="table table-responsive table-borderless">
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table class="table table-bordered" style="border-width: medium;">
+                                <thead>
+                                    <th>Job Name</th>
+                                    <th>Messages</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="jobAnnotation in jobAnnotations">
+                                        <td>{{jobAnnotation.name}}</td>
+                                        <td>{{jobAnnotation.annotations}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
+
+    <script>
+        var RESULTS = "{{RESULTS}}"
+        // var RESULTS = [
+        //     {
+        //         "name": "Job1",
+        //         "annotations": "This has a filed message"
+        //     }
+        // ]
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+        app.controller('githubResultsCtrl', function ($scope) {
+            $scope.jobAnnotations = RESULTS;
+        });
+    </script>
 
 </body>
 
