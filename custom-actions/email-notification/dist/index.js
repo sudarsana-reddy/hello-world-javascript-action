@@ -22703,8 +22703,6 @@ async function getEmailContent(workflowRunURL) {
         .replaceAll("{{FAILED_JOBS}}", await getFailedJobs());
     console.log(emailContent);
     return emailContent;
-
-
 }
 
 async function getFailedJobs() {
