@@ -47,3 +47,5 @@ jobs:
      - name: List Jobs of the current workflow
        if: always()
        uses: ./custom-actions/workflow-conclusion
+       with:
+        TOKEN: ${{ github.token }}
