@@ -7,11 +7,8 @@ async function runAction() {
     let context = new Context.Context();
     console.log("owner: ", context.repo.owner)
     console.log("repo: ", context.repo.repo)
-    console.log("run_id: ", context.runId)
-    
-    octokit.rest.checks.get({
+    console.log("run_id: ", context.runId)    
 
-    })
     let response = await octokit.rest.actions.listJobsForWorkflowRun({
         owner: context.repo.owner,
         repo: context.repo.repo,
@@ -21,7 +18,7 @@ async function runAction() {
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
     let jobsWithConclusions= jobs.filter(job => job.conclusion !== null);
-    jobsWithConclusions.forEach(job=> console.log(`Name: ${job.name} - Conclusion: ${job.conclusion} - status: ${job.status}`));    
+    jobsWithConclusions.forEach(job=> console.log(`Name: ${job.name} - Conclusion: ${job.conclusion} - status: ${job.status} - Check run url: ${job.check_run_url}`));    
 }
 
 runAction();
