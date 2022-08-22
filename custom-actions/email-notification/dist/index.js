@@ -22716,7 +22716,7 @@ async function getFailedJobs() {
                         <td>${job.annotations}}</td>
                     </tr>`;
 
-        resultRows += trHtml + "\n";
+        resultRows += trData + "\n";
     }
 
     return resultRows;
