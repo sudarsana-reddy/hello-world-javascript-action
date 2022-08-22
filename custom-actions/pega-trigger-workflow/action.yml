@@ -31,8 +31,8 @@ inputs:
     required: true
     default: "10"
 
-  WAIT_TIME_INTERVAL:
-    description: "Pega Deployment wait time"
+  IDLE_TIME_INTERVAL:
+    description: "Idle time before getting the status"
     required: true
     default: "1"
     
