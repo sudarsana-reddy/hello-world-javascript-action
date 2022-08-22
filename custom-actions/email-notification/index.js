@@ -82,6 +82,7 @@ async function getEmailContent(workflowRunURL) {
                 "annotations": "This has a filed message"
             }
         ]));
+    console.log(emailContent);
     return emailContent;
 }
 
