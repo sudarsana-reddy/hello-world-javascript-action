@@ -37,11 +37,11 @@ async function runAction() {
 
         let annotatiionMessages="";
         jobAnnotations.data.forEach(annotation => {
-            annotatiionMessages += annotation.message + "\n";
+            annotatiionMessages += (annotation.message + "\n");
         })
         
         console.log(`Name: ${jobName} - Conclusion: ${jobConclusion} - Status: ${jobStatus}`);
-        console.log(`Annotations: ${annotatiionMessages}`);
+        console.log(`${annotatiionMessages}`);
     };
 
 }
