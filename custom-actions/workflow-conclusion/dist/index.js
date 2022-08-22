@@ -9689,23 +9689,25 @@ async function runAction() {
         let job = jobsWithConclusions[index];
         let jobName = job.name;
         let jobConclusion = job.conclusion;
-        let jobStatus = job.status;        
+        let jobStatus = job.status;
         let checkRunUrlSplits = job.check_run_url.split("/");
         let chekRunId = checkRunUrlSplits[checkRunUrlSplits.length - 1];
         console.log(chekRunId);
         let jobAnnotations = await octokit.rest.checks.listAnnotations({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            check_run_id: chekRunId 
+            check_run_id: chekRunId
         });
 
         console.log(JSON.stringify(jobAnnotations, null, 2));
 
-        let annotatiionMessages="";
-        jobAnnotations.data.forEach(annotation => {
-            annotatiionMessages += (annotation.message + "\n");
-        })
-        
+        let annotatiionMessages = "";
+        let annotations = jobAnnotations.data;
+        for (let aIndex = 0; aIndex < annotations.length; aIndex++) {
+            let annotation = annotations[aIndex];
+            console.log(`message: ${annotation.message}`);
+            annotatiionMessages += `${annotation.message}\n`;
+        };
         console.log(`Name: ${jobName} - Conclusion: ${jobConclusion} - Status: ${jobStatus}`);
         console.log(`${annotatiionMessages}`);
     };
