@@ -88,8 +88,8 @@ async function getFailedJobs() {
     let jobData = await getJobData();
     for (let job of jobData) {
         let trData = `<tr>
-                        <td>${job.name}}</td>
-                        <td>${job.annotations}}</td>
+                        <td align="center" valign="top">${job.name}</td>
+                        <td align="center" valign="top">${job.annotations}</td>
                     </tr>`;
 
         resultRows += trData + "\n";
