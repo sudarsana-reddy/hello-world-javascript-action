@@ -9700,13 +9700,13 @@ async function runAction() {
         });
 
         console.log(JSON.stringify(jobAnnotations, null, 2));
-
-        let annotatiionMessages = "";
         let annotations = jobAnnotations.data;
+        let annotatiionMessages = "";
         for (let aIndex = 0; aIndex < annotations.length; aIndex++) {
             let annotation = annotations[aIndex];
             console.log(`message: ${annotation.message}`);
             annotatiionMessages += `${annotation.message}\n`;
+            console.log(`${annotatiionMessages}`);
         };
         console.log(`Name: ${jobName} - Conclusion: ${jobConclusion} - Status: ${jobStatus}`);
         console.log(`${annotatiionMessages}`);
