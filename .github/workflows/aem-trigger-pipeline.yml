@@ -11,7 +11,7 @@ jobs:
       - name: AEM Pipeline Trigger     
         uses: ./custom-actions/aem-trigger-pipeline
         with:
-          AEM_JSON_FILE_PATH: "./custom-actions/aem-trigger-pipeline/config.json"
+          AEM_JSON_FILE_PATH: "${{github.workspace}}/custom-actions/aem-trigger-pipeline/config.json"
           PRIVATE_KEY: "1234"
           PROGRAMID: "1"
           PIPELINEID: "2"
