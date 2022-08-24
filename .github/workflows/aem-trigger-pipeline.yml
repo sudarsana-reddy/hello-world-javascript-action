@@ -17,4 +17,4 @@ jobs:
           PIPELINEID: "2"
           SHOULD_TRIGGER_PIPELINE: false
           AEM_DEPLOYMENT_WAIT_TIME: "2"
-          AEM_TIME_INTERVAL: "1"
+          IDLE_TIME_INTERVAL: "1"
