@@ -2033,7 +2033,7 @@ governing permissions and limitations under the License.
 
 const loggerNamespace = '@adobe/aio-lib-cloudmanager'
 const logger = __nccwpck_require__(61455)(loggerNamespace, { level: process.env.LOG_LEVEL })
-const halfred = __nccwpck_require__(75660)
+const halfred = __nccwpck_require__(47551)
 const UriTemplate = __nccwpck_require__(62151)
 const URI = __nccwpck_require__(93410)
 const { createFetch } = __nccwpck_require__(32714)
@@ -62772,7 +62772,7 @@ function patch (fs) {
 
 /***/ }),
 
-/***/ 75660:
+/***/ 47551:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 var Parser = __nccwpck_require__(83977);
@@ -66769,7 +66769,7 @@ const Common = __nccwpck_require__(69002);
 const Compile = __nccwpck_require__(44001);
 const Errors = __nccwpck_require__(4265);
 const Extend = __nccwpck_require__(62275);
-const Manifest = __nccwpck_require__(60055);
+const Manifest = __nccwpck_require__(75660);
 const Messages = __nccwpck_require__(66523);
 const Modify = __nccwpck_require__(65729);
 const Ref = __nccwpck_require__(79521);
@@ -69108,7 +69108,7 @@ const Common = __nccwpck_require__(69002);
 const Compile = __nccwpck_require__(44001);
 const Errors = __nccwpck_require__(4265);
 const Extend = __nccwpck_require__(62275);
-const Manifest = __nccwpck_require__(60055);
+const Manifest = __nccwpck_require__(75660);
 const Ref = __nccwpck_require__(79521);
 const Template = __nccwpck_require__(98112);
 const Trace = __nccwpck_require__(38091);
@@ -69385,7 +69385,7 @@ module.exports = internals.root();
 
 /***/ }),
 
-/***/ 60055:
+/***/ 75660:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -117844,9 +117844,9 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(64824);
-const sdk = __nccwpck_require__(5116);
-const { context, getToken } = __nccwpck_require__(71356)
 
+const { context, getToken } = __nccwpck_require__(71356);
+const sdk = __nccwpck_require__(5116);
 
 const PROGRAMID = core.getInput("PROGRAMID");
 const PIPELINEID = core.getInput("PIPELINEID");
@@ -117857,19 +117857,19 @@ console.log(`SHOULD_TRIGGER_PIPELINE: ${SHOULD_TRIGGER_PIPELINE}`);
 const AEM_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('AEM_DEPLOYMENT_WAIT_TIME') || 10); //default 10 MINUTES   
 const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL") || 2);// deafult 1 minute
 
-const imsConfig = require(AEM_JSON_FILE_PATH);
-imsConfig.private_key=PRIVATE_KEY.toString();
 const CONTEXT = 'aio-cloudmanager-github-actions';
+
+let imsConfig = require(AEM_JSON_FILE_PATH);
+imsConfig.private_key=PRIVATE_KEY.toString();
 let client = {};
 
 async function runAction() {
-    try {      
-       
-        let ACCESS_TOKEN = await getAccessToken();
-        // client = await sdk.init(imsConfig.ims_org_id,  imsConfig.client_id, ACCESS_TOKEN);
-        let executionId = SHOULD_TRIGGER_PIPELINE ? await triggerPipeline() : "1649954";   
+    try {       
+        let accessToken = await getAccessToken();
+        client = await sdk.init(imsConfig.ims_org_id,  imsConfig.client_id, accessToken);
+        let executionId = SHOULD_TRIGGER_PIPELINE ? await triggerPipeline() : await getExecution();   
         console.log(`executionId: ${executionId}`);
-        // await waitForPipelineToComplete(executionId);     
+        await waitForPipelineToComplete(executionId);     
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
@@ -117877,22 +117877,29 @@ async function runAction() {
 }
 
 async function getAccessToken(){
-    console.log("getting access token")
-    return "token";
-    // await context.set(CONTEXT, imsConfig, true);
-    // let access_token = await getToken(CONTEXT);
-    // console.log(`Access Token: ${access_token}`);
-    // return access_token;
+    console.log("getting access token");   
+    await context.set(CONTEXT, imsConfig, true);
+    let access_token = await getToken(CONTEXT);
+    console.log(`Access Token: ${access_token}`);
+    return access_token;
 }
 
 async function triggerPipeline(){
     console.log("triggerPipeline called");
-    // const response = await client.createExecution(PROGRAMID, PIPELINEID, "");
-    // console.log(response);
-    // return response.id;
+    const response = await client.createExecution(PROGRAMID, PIPELINEID, "");
+    console.log(response);
+    return response.id;
 }
 
-async function waitForPipelineToComplete(executionId){   
+async function getExecution(client){
+    console.log("Getting current execution");
+    const response = await client.getCurrentExecution(PROGRAMID, PIPELINEID);
+    console.log(response);
+    return response.id;    
+}
+
+async function waitForPipelineToComplete(client, executionId){   
+      
     console.log("######## Waiting for the deployment to complete or error out ########");  
     let pipelineStatus = "";   
     let totalTime = 0; // 1 minute 
@@ -117901,7 +117908,7 @@ async function waitForPipelineToComplete(executionId){
         console.log(`######## Idle for ${IDLE_TIME_INTERVAL} minutes, before getting the status ########`);
         await new Promise(resolve => setTimeout(resolve, IDLE_TIME_INTERVAL * 60 * 1000)); //sleep for the specified idle time
         totalTime += IDLE_TIME_INTERVAL;
-        let executionResponse = await client.getExecution(PROGRAMID, PIPELINEID, executionId);
+        let executionResponse = await client.getExecution(PROGRAMID, PIPELINEID, executionId);        
         console.log(`Response: ${JSON.stringify(executionResponse, null, 2)}`);
         pipelineStatus = executionResponse.status;
         console.log(`pipelineStatus: ${pipelineStatus}`);

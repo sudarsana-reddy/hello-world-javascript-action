@@ -1,7 +1,7 @@
 const core = require('@actions/core');
-const sdk = require('@adobe/aio-lib-cloudmanager');
-const { context, getToken } = require('@adobe/aio-lib-ims')
 
+const { context, getToken } = require('@adobe/aio-lib-ims');
+const sdk = require('@adobe/aio-lib-cloudmanager');
 
 const PROGRAMID = core.getInput("PROGRAMID");
 const PIPELINEID = core.getInput("PIPELINEID");
@@ -12,19 +12,19 @@ console.log(`SHOULD_TRIGGER_PIPELINE: ${SHOULD_TRIGGER_PIPELINE}`);
 const AEM_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('AEM_DEPLOYMENT_WAIT_TIME') || 10); //default 10 MINUTES   
 const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL") || 2);// deafult 1 minute
 
-const imsConfig = require(AEM_JSON_FILE_PATH);
-imsConfig.private_key=PRIVATE_KEY.toString();
 const CONTEXT = 'aio-cloudmanager-github-actions';
+
+let imsConfig = require(AEM_JSON_FILE_PATH);
+imsConfig.private_key=PRIVATE_KEY.toString();
 let client = {};
 
 async function runAction() {
-    try {      
-       
-        let ACCESS_TOKEN = await getAccessToken();
-        // client = await sdk.init(imsConfig.ims_org_id,  imsConfig.client_id, ACCESS_TOKEN);
-        let executionId = SHOULD_TRIGGER_PIPELINE ? await triggerPipeline() : "1649954";   
+    try {       
+        let accessToken = await getAccessToken();
+        client = await sdk.init(imsConfig.ims_org_id,  imsConfig.client_id, accessToken);
+        let executionId = SHOULD_TRIGGER_PIPELINE ? await triggerPipeline() : await getExecution();   
         console.log(`executionId: ${executionId}`);
-        // await waitForPipelineToComplete(executionId);     
+        await waitForPipelineToComplete(executionId);     
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
@@ -32,22 +32,29 @@ async function runAction() {
 }
 
 async function getAccessToken(){
-    console.log("getting access token")
-    return "token";
-    // await context.set(CONTEXT, imsConfig, true);
-    // let access_token = await getToken(CONTEXT);
-    // console.log(`Access Token: ${access_token}`);
-    // return access_token;
+    console.log("getting access token");   
+    await context.set(CONTEXT, imsConfig, true);
+    let access_token = await getToken(CONTEXT);
+    console.log(`Access Token: ${access_token}`);
+    return access_token;
 }
 
 async function triggerPipeline(){
     console.log("triggerPipeline called");
-    // const response = await client.createExecution(PROGRAMID, PIPELINEID, "");
-    // console.log(response);
-    // return response.id;
+    const response = await client.createExecution(PROGRAMID, PIPELINEID, "");
+    console.log(response);
+    return response.id;
 }
 
-async function waitForPipelineToComplete(executionId){   
+async function getExecution(client){
+    console.log("Getting current execution");
+    const response = await client.getCurrentExecution(PROGRAMID, PIPELINEID);
+    console.log(response);
+    return response.id;    
+}
+
+async function waitForPipelineToComplete(client, executionId){   
+      
     console.log("######## Waiting for the deployment to complete or error out ########");  
     let pipelineStatus = "";   
     let totalTime = 0; // 1 minute 
@@ -56,7 +63,7 @@ async function waitForPipelineToComplete(executionId){
         console.log(`######## Idle for ${IDLE_TIME_INTERVAL} minutes, before getting the status ########`);
         await new Promise(resolve => setTimeout(resolve, IDLE_TIME_INTERVAL * 60 * 1000)); //sleep for the specified idle time
         totalTime += IDLE_TIME_INTERVAL;
-        let executionResponse = await client.getExecution(PROGRAMID, PIPELINEID, executionId);
+        let executionResponse = await client.getExecution(PROGRAMID, PIPELINEID, executionId);        
         console.log(`Response: ${JSON.stringify(executionResponse, null, 2)}`);
         pipelineStatus = executionResponse.status;
         console.log(`pipelineStatus: ${pipelineStatus}`);
