@@ -3,7 +3,11 @@ description: 'AEM Pipeline - Trigger and Waitfor it complete'
 inputs:
   AEM_JSON_FILE_PATH: 
     description: 'Json file with required details'
-    required: true   
+    required: true 
+
+  PRIVATE_KEY:
+    description: "Private Key" 
+    required: true 
 
   PROGRAMID: 
     description: 'Program Id'
@@ -11,7 +15,12 @@ inputs:
 
   PIPELINEID: 
     description: 'Pipeline Id'
-    required: true    
+    required: true   
+
+  SHOULD_TRIGGER_PIPELINE:
+    description: "Flag to trigger pipeline or not" 
+    required: true
+    type: boolean
 
   AEM_DEPLOYMENT_WAIT_TIME: 
     description: 'Wait time for pipeline to complete'

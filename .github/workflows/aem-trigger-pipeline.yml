@@ -1,0 +1,20 @@
+name: pega-trigger-pipeline
+
+on: [workflow_dispatch]
+
+jobs:
+  pega-trigger-pipeline:
+    runs-on: ubuntu-latest   
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: AEM Pipeline Trigger     
+        uses: ./custom-actions/aem-trigger-workflow
+        with:
+          AEM_JSON_FILE_PATH: "./config.json"
+          PRIVATE_KEY: "1234"
+          PROGRAMID: "1"
+          PIPELINEID: "2"
+          SHOULD_TRIGGER_PIPELINE: false
+          AEM_DEPLOYMENT_WAIT_TIME: "2"
+          AEM_TIME_INTERVAL: "1"
