@@ -1,4 +1,4 @@
-name: pega-trigger-pipeline
+name: aem-trigger-pipeline
 
 on: [workflow_dispatch]
 
