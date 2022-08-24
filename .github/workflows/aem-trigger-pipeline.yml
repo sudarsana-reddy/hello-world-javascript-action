@@ -12,7 +12,7 @@ jobs:
         uses: ./custom-actions/aem-trigger-pipeline
         with:
           AEM_JSON_FILE_PATH: "${{github.workspace}}/custom-actions/aem-trigger-pipeline/config.json"
-          PRIVATE_KEY: "1234"
+          PRIVATE_KEY: "4568"
           PROGRAMID: "1"
           PIPELINEID: "2"
           SHOULD_TRIGGER_PIPELINE: false
