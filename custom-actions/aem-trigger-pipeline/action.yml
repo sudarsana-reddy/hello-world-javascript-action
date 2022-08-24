@@ -1,5 +1,5 @@
 name: 'AEM Pipeline'
-description: 'AEM Pipeline - Trigger and Waitfor it complete'
+description: 'AEM Pipeline - Trigger and Waitfor it to complete'
 inputs:
   AEM_JSON_FILE_PATH: 
     description: 'Json file with required details'
