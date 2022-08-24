@@ -1,0 +1,26 @@
+name: 'AEM Pipeline'
+description: 'AEM Pipeline - Trigger and Waitfor it complete'
+inputs:
+  AEM_JSON_FILE_PATH: 
+    description: 'Json file with required details'
+    required: true   
+
+  PROGRAMID: 
+    description: 'Program Id'
+    required: true
+
+  PIPELINEID: 
+    description: 'Pipeline Id'
+    required: true    
+
+  AEM_DEPLOYMENT_WAIT_TIME: 
+    description: 'Wait time for pipeline to complete'
+    required: true    
+
+  IDLE_TIME_INTERVAL: 
+    description: 'Idle time before gets pipeline status'
+    required: true 
+
+runs:
+  using: 'node14'
+  main: 'dist/index.js'
