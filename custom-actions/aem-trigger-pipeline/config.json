@@ -1,9 +1,0 @@
-{
-    "client_id": "1234567",
-    "client_secret": "qwewqew",
-    "technical_account_id": "qwewq",
-    "ims_org_id": "v432423",
-    "meta_scopes": [
-      "ent_cloudmgr_sdk"
-    ]
-  }
