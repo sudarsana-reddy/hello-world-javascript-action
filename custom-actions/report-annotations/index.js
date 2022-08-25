@@ -7,11 +7,15 @@ let message = "Sample annotation";
 
 async function runAction() {
     try {
+        
         core.warning(message);
-        fs.writeFileSync(FILE_NAME, message);
+        fs.appendFileSync(FILE_NAME, message, );
+        console.log(`data: ${fs.readFileSync(FILE_NAME, 'utf-8')}`);
+        
     }catch(error){
         core.setFailed(error.message);
-        fs.writeFileSync(FILE_NAME, error.message);
+        fs.appendFileSync(FILE_NAME, error.message);
+        console.log(`data: ${fs.readFileSync(FILE_NAME, 'utf-8')}`);
     }
 }
 
