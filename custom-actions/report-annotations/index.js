@@ -19,4 +19,6 @@ async function runAction() {
     }
 }
 
+runAction();
+
 

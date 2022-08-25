@@ -2823,6 +2823,8 @@ async function runAction() {
     }
 }
 
+runAction();
+
 
 
 })();
