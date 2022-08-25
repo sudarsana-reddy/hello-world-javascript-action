@@ -2,6 +2,11 @@ name: report-annotations-test
 
 on:  
   workflow_dispatch:  
+  push:
+    paths:
+      - 'custom-actions/report-annotations/**'
+      - '.github/workflows/report-annotations-test.yml' 
+
 
 jobs:
   report-annotations-test:
@@ -9,7 +14,7 @@ jobs:
     steps:   
       - name: Checkout
         uses: actions/checkout@v3
-      - name: echo the wokflow url
+      - name: Add annotations to report
         uses: ./custom-actions/report-annotations
         with:
           FILE_NAME: "${{ github.workspace }}/test.txt"
