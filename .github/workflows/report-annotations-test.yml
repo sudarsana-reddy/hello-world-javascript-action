@@ -22,6 +22,7 @@ jobs:
 
   download-and-print-test:
     runs-on: ubuntu-latest
+    needs: report-annotations-test
     steps:   
       - name: Download test file
         uses: actions/download-artifact@v3
