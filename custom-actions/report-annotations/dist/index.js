@@ -2806,15 +2806,16 @@ const core = __nccwpck_require__(824);
 const fs = __nccwpck_require__(147);
 
 const FILE_NAME = core.getInput("FILE_NAME");
+console.log(FILE_NAME);
 let message = "Sample annotation";
 
 async function runAction() {
     try {
         core.warning(message);
-        fs.appendFile(FILE_NAME, message);
+        fs.writeFileSync(FILE_NAME, message);
     }catch(error){
         core.setFailed(error.message);
-        fs.appendFile(FILE_NAME, error.message);
+        fs.writeFileSync(FILE_NAME, error.message);
     }
 }
 
