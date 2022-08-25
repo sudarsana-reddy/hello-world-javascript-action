@@ -41,6 +41,7 @@ jobs:
       - name: Print the contents
         run: |
           data=$(cat test.txt)
+          echo "data: $data"
           echo "ANNOTATIONS=$data" >> "GITHUB_ENV"
 
       - name: Send Email Notification
