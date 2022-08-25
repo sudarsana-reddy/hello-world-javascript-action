@@ -1,0 +1,10 @@
+name: 'Upload annotation and download'
+description: 'Upload annotation and download'
+inputs:
+  FILE_NAME: 
+    description: 'File to add annotations'
+    required: true    
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
