@@ -28,6 +28,7 @@ jobs:
   download-and-print-test:
     runs-on: ubuntu-latest
     needs: report-annotations-test
+    if: always()
     steps:   
       - name: Download test file
         uses: actions/download-artifact@v3
@@ -36,5 +37,21 @@ jobs:
           
       - name: Print the contents
         run: |
-          cat test.txt
+          data=$(cat test.txt)
+          echo "ANNOTATIONS=$data" >> "GITHUB_ENV"
+
+      - name: Send Email Notification
+        if: always()
+        uses: ./custom-actions/email-notification
+        with:
+          STATUS: "${{ job.status }} - ${{ env.ANNOTATIONS }}"
+          SMTP_HOST: "smtp-mail.outlook.com"
+          SMTP_PORT: "587"
+          SMTP_USERNAME: "asreddy@live.com"
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          TO: "asreddy@live.com"
+          CC: "asreddy@live.com" 
+
+
+      
 
