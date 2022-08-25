@@ -43,7 +43,7 @@ jobs:
           data=$(cat test.txt)
           echo "data: $data"
           echo "ANNOTATIONS=$data" >> "$GITHUB_ENV"
-          echo ${{ env.ANNOTATIONS }}
+          echo "${{ env.ANNOTATIONS }}"
 
       - name: Send Email Notification
         if: always()
