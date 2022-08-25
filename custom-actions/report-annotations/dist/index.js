@@ -2807,7 +2807,7 @@ const fs = __nccwpck_require__(147);
 
 const FILE_NAME = core.getInput("FILE_NAME");
 console.log(FILE_NAME);
-let message = "Sample annotation";
+let message = "Sample annotation\nAnnotation2";
 
 async function runAction() {
     try {
