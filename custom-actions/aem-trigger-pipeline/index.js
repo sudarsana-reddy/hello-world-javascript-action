@@ -68,6 +68,22 @@ async function waitForPipelineToComplete(executionId) {
         pipelineStatus = executionResponse.status;
         console.log(`pipelineStatus: ${pipelineStatus}`);
 
+        let statusTable = [];
+        
+        statusTable.push({
+            'Step': 'Pipline Status',
+            'Status': pipelineStatus
+        });
+
+        for (let step of executionResponse["_embedded"].stepStates){
+            statusTable.push({
+                'Step': step.action,
+                "Status": step.status
+            });
+        }
+
+        console.table(statusTable);
+
         if (pipelineStatus === 'NOT_STARTED') {
             core.warning("Pipeline not started, check on manually");
             break;
