@@ -64,7 +64,7 @@ async function waitForPipelineToComplete(executionId) {
         await new Promise(resolve => setTimeout(resolve, IDLE_TIME_INTERVAL * 60 * 1000)); //sleep for the specified idle time
         totalTime += IDLE_TIME_INTERVAL;
         let executionResponse = await client.getExecution(PROGRAMID, PIPELINEID, executionId);
-        console.log(`Response: ${JSON.stringify(executionResponse, null, 2)}`);
+        // console.log(`Response: ${JSON.stringify(executionResponse, null, 2)}`);
         pipelineStatus = executionResponse.status;
         console.log(`pipelineStatus: ${pipelineStatus}`);
 
