@@ -31,4 +31,4 @@ jobs:
         SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         TO: "asreddy@live.com"
         CC: "asreddy@live.com"
-        # ATTACHMENTS: "a.txt;test/b.txt;c.txt"
+        ATTACHMENTS: "a.txt;test/b.txt;c.txt"
