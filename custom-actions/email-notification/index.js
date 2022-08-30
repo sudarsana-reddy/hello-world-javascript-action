@@ -70,14 +70,15 @@ async function getAttachments() {
     let attachments = [];
     let filePaths = email_attachments.split(";");
     for (let filePath of filePaths) {
-        if(fs.existsSync(filePath)){
-            let pathSplits = filePath.split("/");
-            let fileName = pathSplits[pathSplits.length - 1];
+        let pathSplits = filePath.split("/");
+        let fileName = pathSplits[pathSplits.length - 1];
+        let fileFullPath = path.join(process.cwd(), filePath);
+        if (fs.existsSync(fileFullPath)) {
             attachments.push({
                 filename: fileName,
-                path: path.join(process.cwd(), filePath)
+                path: fileFullPath
             });
-        }else{
+        } else {
             core.warning(`${filePath} doesn't exist`);
         }
     }
