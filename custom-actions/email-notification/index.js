@@ -8,6 +8,7 @@ const path = require('path');
 console.log("executing directory: ", __dirname);
 const email_template_file = `${__dirname}/templates/email-template.html`;
 const email_attachments = core.getInput("ATTACHMENTS");
+console.log(`email_attachments:${email_attachments}`);
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
@@ -67,7 +68,7 @@ async function sendEmail(emailContent) {
 }
 
 async function getAttachments() {
-    let attachments = [];
+    let attachments = [];  
     let filePaths = email_attachments.split(";");
     for (let filePath of filePaths) {
         let pathSplits = filePath.split("/");
