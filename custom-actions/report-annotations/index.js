@@ -6,13 +6,12 @@ console.log(FILE_NAME);
 let message = "Sample annotation\nAnnotation2";
 
 async function runAction() {
-    try {
-        
+    try {        
         core.warning(message);
-        fs.appendFileSync(FILE_NAME, message, );
+        fs.appendFileSync(FILE_NAME, message,);
         console.log(`data: ${fs.readFileSync(FILE_NAME, 'utf-8')}`);
-        
-    }catch(error){
+
+    } catch (error) {
         core.setFailed(error.message);
         fs.appendFileSync(FILE_NAME, error.message);
         console.log(`data: ${fs.readFileSync(FILE_NAME, 'utf-8')}`);
@@ -20,5 +19,3 @@ async function runAction() {
 }
 
 runAction();
-
-
