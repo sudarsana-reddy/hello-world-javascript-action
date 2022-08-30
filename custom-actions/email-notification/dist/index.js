@@ -22631,7 +22631,7 @@ const path = __nccwpck_require__(1017);
 
 console.log("executing directory: ", __dirname);
 const email_template_file = __nccwpck_require__.ab + "email-template.html";
-const email_attachment = core.getInput("ATTACHMENTS");
+const email_attachments = core.getInput("ATTACHMENTS");
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
@@ -22676,11 +22676,23 @@ async function sendEmail(emailContent) {
         to: to_email,
         cc: cc_email,
         subject: `${organization}/${repoName} - ${workflow_name}: ${status}`,
-        html: emailContent,
-        attachments:[{
-            filename: email_attachment,
-            path: path.join(process.cwd(), email_attachment)
-        }]
+        html: emailContent    
+    }
+
+    
+    let attachments = [];
+    let filePaths = email_attachments.split(";");
+    for (let filePath of filePaths){
+        let pathSplits = filePath.split("/");
+        let fileName = pathSplits[pathSplits.length-1];
+        attachments.push({
+            filename: fileName,
+            path: path.join(process.cwd(), filePath)
+        })
+    }
+
+    if(attachments.length > 0){
+        message.attachments = attachments;
     }
 
 

@@ -17,6 +17,10 @@ jobs:
        run: | 
         touch a.txt
         echo "Sample Data" >> a.txt
+        mkdir test
+        cd test
+        touch b.txt
+        echo "it is under test/b.txt" >> b.txt
      - name: Send email notiofication
        uses: ./custom-actions/email-notification
        with:
@@ -27,4 +31,4 @@ jobs:
         SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         TO: "asreddy@live.com"
         CC: "asreddy@live.com"
-        ATTACHMENTS: a.txt
+        ATTACHMENTS: "a.txt;test/b.txt"
