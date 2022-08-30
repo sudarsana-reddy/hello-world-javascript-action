@@ -44,9 +44,7 @@ async function sendEmail(emailContent) {
             pass: password
         }
     });
-
-    let filePath = path.join(process.cwd(), email_attachment);
-    console.log(`filePath: ${filePath}`);
+ 
     let message = {
         from: `GitHub Notifications ${username}`,
         to: to_email,
