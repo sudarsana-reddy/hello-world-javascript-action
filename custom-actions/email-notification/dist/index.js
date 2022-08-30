@@ -22692,19 +22692,21 @@ async function sendEmail(emailContent) {
 }
 
 async function getAttachments() {
-    let attachments = [];  
-    let filePaths = email_attachments.split(";");
-    for (let filePath of filePaths) {
-        let pathSplits = filePath.split("/");
-        let fileName = pathSplits[pathSplits.length - 1];
-        let fileFullPath = path.join(process.cwd(), filePath);
-        if (fs.existsSync(fileFullPath)) {
-            attachments.push({
-                filename: fileName,
-                path: fileFullPath
-            });
-        } else {
-            core.warning(`${filePath} doesn't exist`);
+    let attachments = [];
+    if (email_attachments !== null && email_attachments !== "") {
+        let filePaths = email_attachments.split(";");
+        for (let filePath of filePaths) {
+            let pathSplits = filePath.split("/");
+            let fileName = pathSplits[pathSplits.length - 1];
+            let fileFullPath = path.join(process.cwd(), filePath);
+            if (fs.existsSync(fileFullPath)) {
+                attachments.push({
+                    filename: fileName,
+                    path: fileFullPath
+                });
+            } else {
+                core.warning(`${filePath} doesn't exist`);
+            }
         }
     }
 
