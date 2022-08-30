@@ -22668,31 +22668,19 @@ async function sendEmail(emailContent) {
             pass: password
         }
     });
- 
+
     let message = {
         from: `GitHub Notifications ${username}`,
         to: to_email,
         cc: cc_email,
         subject: `${organization}/${repoName} - ${workflow_name}: ${status}`,
-        html: emailContent    
+        html: emailContent
     }
 
-    
-    let attachments = [];
-    let filePaths = email_attachments.split(";");
-    for (let filePath of filePaths){
-        let pathSplits = filePath.split("/");
-        let fileName = pathSplits[pathSplits.length-1];
-        attachments.push({
-            filename: fileName,
-            path: path.join(process.cwd(), filePath)
-        })
-    }
-
-    if(attachments.length > 0){
+    let attachments = await getAttachments();
+    if (attachments.length > 0) {
         message.attachments = attachments;
     }
-
 
     let info = await transporter.sendMail(message);
     console.log('Message sent successfully!');
@@ -22700,6 +22688,23 @@ async function sendEmail(emailContent) {
     console.log(nodemailer.getTestMessageUrl(info));
 
     transporter.close();
+}
+
+async function getAttachments() {
+    let attachments = [];
+    let filePaths = email_attachments.split(";");
+    for (let filePath of filePaths) {
+        if(fs.existsSync(filePath)){
+            let pathSplits = filePath.split("/");
+            let fileName = pathSplits[pathSplits.length - 1];
+            attachments.push({
+                filename: fileName,
+                path: path.join(process.cwd(), filePath)
+            });
+        }else{
+            core.warning(`${filePath} doesn't exist`);
+        }
+    }
 }
 
 async function getWorkflowRunURL() {
