@@ -22627,9 +22627,11 @@ const github = __nccwpck_require__(6985);
 const Context = __nccwpck_require__(9309);
 const nodemailer = __nccwpck_require__(4526);
 const fs = __nccwpck_require__(7147);
+const path = __nccwpck_require__(1017);
 
 console.log("executing directory: ", __dirname);
 const email_template_file = __nccwpck_require__.ab + "email-template.html";
+const email_attachment = core.getInput("ATTACHMENTS");
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
@@ -22667,13 +22669,20 @@ async function sendEmail(emailContent) {
         }
     });
 
+    let filePath = path.join(process.cwd(), email_attachment);
+    console.log(`filePath: ${filePath}`);
     let message = {
         from: `GitHub Notifications ${username}`,
         to: to_email,
         cc: cc_email,
         subject: `${organization}/${repoName} - ${workflow_name}: ${status}`,
-        html: emailContent
+        html: emailContent,
+        attachments:[{
+            filename: email_attachment,
+            path: path.join(process.cwd(), email_attachment)
+        }]
     }
+
 
     let info = await transporter.sendMail(message);
     console.log('Message sent successfully!');

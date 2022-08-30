@@ -36,7 +36,6 @@ async function runAction() {
 }
 
 async function sendEmail(emailContent) {
-
     let transporter = nodemailer.createTransport({
         host: smtp_host,
         port: smtp_port,
@@ -46,6 +45,8 @@ async function sendEmail(emailContent) {
         }
     });
 
+    let filePath = path.join(process.cwd(), email_attachment);
+    console.log(`filePath: ${filePath}`);
     let message = {
         from: `GitHub Notifications ${username}`,
         to: to_email,
@@ -53,6 +54,7 @@ async function sendEmail(emailContent) {
         subject: `${organization}/${repoName} - ${workflow_name}: ${status}`,
         html: emailContent,
         attachments:[{
+            filename: email_attachment,
             path: path.join(process.cwd(), email_attachment)
         }]
     }
