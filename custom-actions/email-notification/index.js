@@ -82,6 +82,8 @@ async function getAttachments() {
             core.warning(`${filePath} doesn't exist`);
         }
     }
+
+    return attachments;
 }
 
 async function getWorkflowRunURL() {
