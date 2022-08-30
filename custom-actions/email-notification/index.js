@@ -3,9 +3,11 @@ const github = require('@actions/github/lib/github');
 const Context = require('@actions/github/lib/context');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const path = require('path');
 
 console.log("executing directory: ", __dirname);
 const email_template_file = `${__dirname}/templates/email-template.html`;
+const email_attachment = core.getInput("ATTACHMENTS");
 let status = core.getInput('STATUS');
 let token = core.getInput('TOKEN');
 let smtp_host = core.getInput('SMTP_HOST');
@@ -34,6 +36,7 @@ async function runAction() {
 }
 
 async function sendEmail(emailContent) {
+
     let transporter = nodemailer.createTransport({
         host: smtp_host,
         port: smtp_port,
@@ -48,8 +51,12 @@ async function sendEmail(emailContent) {
         to: to_email,
         cc: cc_email,
         subject: `${organization}/${repoName} - ${workflow_name}: ${status}`,
-        html: emailContent
+        html: emailContent,
+        attachments:[{
+            path: path.join(process.cwd(), email_attachment)
+        }]
     }
+
 
     let info = await transporter.sendMail(message);
     console.log('Message sent successfully!');

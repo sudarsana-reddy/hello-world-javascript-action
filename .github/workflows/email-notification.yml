@@ -13,7 +13,11 @@ jobs:
      steps:   
      - name: Checkout
        uses: actions/checkout@v3
-     - name: echo the wokflow url
+     - name: Create a file for attachment
+       run: | 
+        touch a.txt
+        echo "Sample Data" >> a.txt
+     - name: Send email notiofication
        uses: ./custom-actions/email-notification
        with:
         STATUS: ${{ job.status }}
@@ -23,3 +27,4 @@ jobs:
         SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         TO: "asreddy@live.com"
         CC: "asreddy@live.com"
+        ATTACHMENTS: a.txt
