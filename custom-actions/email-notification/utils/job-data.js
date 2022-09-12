@@ -18,9 +18,9 @@ async function getJobData() {
 
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
-    let jobsWithConclusions = jobs.filter(job => job.conclusion !== 'failure');
-    console.log(`Jobs With Conclusions: ${jobsWithConclusions.length}`);
-
+    let jobsWithConclusions = jobs.filter(job => job.conclusion !== null);
+    console.log(`jobsWithConclusions: ${JSON.stringify(jobsWithConclusions, null, 2)}`);
+    
     let jobStatuses =[];
 
     for (let index = 0; index < jobsWithConclusions.length; index++) {
@@ -37,7 +37,7 @@ async function getJobData() {
             check_run_id: chekRunId
         });
 
-        console.log(JSON.stringify(jobAnnotations, null, 2));
+        console.log(`jobAnnotations: ${JSON.stringify(jobAnnotations, null, 2)}`);
         let annotations = jobAnnotations.data;
         let annotatiionMessages = "";
         for (let aIndex = 0; aIndex < annotations.length; aIndex++) {
@@ -47,7 +47,7 @@ async function getJobData() {
             console.log(`${annotatiionMessages}`);
         };
         console.log(`Name: ${jobName} - Conclusion: ${jobConclusion} - Status: ${jobStatus}`);
-        console.log(`${annotatiionMessages}`);
+        console.log(`annotatiionMessages: ${annotatiionMessages}`);
 
         jobStatuses.push({
             "name": job.name,
