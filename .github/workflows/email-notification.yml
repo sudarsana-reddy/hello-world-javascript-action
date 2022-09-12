@@ -10,9 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@v3
+    steps:    
     - name: Create a file for attachment
       run: | 
         touch a.txt
@@ -33,10 +31,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Download files 
       uses: actions/download-artifact@v3.0.0
       with:
         name: test-files
+        
     - name: Send email notiofication
       uses: ./custom-actions/email-notification
       with:
