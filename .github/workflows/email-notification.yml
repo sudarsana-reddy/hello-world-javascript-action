@@ -30,5 +30,5 @@ jobs:
         SMTP_USERNAME: "asreddy@live.com"
         SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         TO: "asreddy@live.com"
-        CC: "asreddy@live.com"
+        CC: "sudarsana.ala@gmail.com"
         ATTACHMENTS: "a.txt;test/b.txt;c.txt"
