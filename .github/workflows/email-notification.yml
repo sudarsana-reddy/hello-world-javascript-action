@@ -26,8 +26,8 @@ jobs:
       with: 
         name: test-files
         path: |
-          "a.txt"
-          "test/b.txt"
+          a.txt
+          test/b.txt
 
   email-notification:
     runs-on: ubuntu-latest
