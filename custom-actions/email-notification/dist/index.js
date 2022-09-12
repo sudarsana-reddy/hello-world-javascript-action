@@ -22474,7 +22474,7 @@ async function getJobData() {
     console.log(JSON.stringify(jobStatuses, null, 2));
 }
 
-module.exports = { getJobStatus };
+module.exports = { getJobData };
 
 
 /***/ }),
@@ -22805,7 +22805,7 @@ async function getEmailContent(workflowRunURL) {
 
 async function getFailedJobs() {
     let resultRows = "";
-    let jobData = await jobUtils.getJobStatus();
+    let jobData = await jobUtils.getJobData();
     for (let job of jobData) {
         let trData = `<tr>
                         <td align="center" valign="top">${job.name}</td>

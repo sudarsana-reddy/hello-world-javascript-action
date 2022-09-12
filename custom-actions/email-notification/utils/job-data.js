@@ -56,4 +56,4 @@ async function getJobData() {
     console.log(JSON.stringify(jobStatuses, null, 2));
 }
 
-module.exports = { getJobStatus };
+module.exports = { getJobData };
