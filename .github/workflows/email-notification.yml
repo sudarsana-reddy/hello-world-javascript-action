@@ -26,10 +26,16 @@ jobs:
         path: |
           a.txt
           test/b.txt
+    - name: Failed Step
+      run: |
+        echo "Failing intetionally"
+        exit 1;
+    
 
   email-notification:
     runs-on: ubuntu-latest
     needs: [ build ]
+    if: always()
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -38,7 +44,7 @@ jobs:
       uses: actions/download-artifact@v3.0.0
       with:
         name: test-files
-        
+
     - name: Send email notiofication
       uses: ./custom-actions/email-notification
       with:
