@@ -4,6 +4,8 @@ const Context = require('@actions/github/lib/context');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const jobUtils = require('./utils/job-data');
+
 
 console.log("executing directory: ", __dirname);
 const email_template_file = `${__dirname}/templates/email-template.html`;
@@ -113,7 +115,7 @@ async function getEmailContent(workflowRunURL) {
 
 async function getFailedJobs() {
     let resultRows = "";
-    let jobData = await getJobData();
+    let jobData = await jobUtils.getJobStatus();
     for (let job of jobData) {
         let trData = `<tr>
                         <td align="center" valign="top">${job.name}</td>
@@ -126,17 +128,17 @@ async function getFailedJobs() {
     return resultRows;
 }
 
-async function getJobData() {
-    return [
-        {
-            "name": "Job1",
-            "annotations": "Message1"
-        },
-        {
-            "name": "Job2",
-            "annotations": "Message2"
-        }
-    ]
-}
+// async function getJobData() {
+//     return [
+//         {
+//             "name": "Job1",
+//             "annotations": "Message1"
+//         },
+//         {
+//             "name": "Job2",
+//             "annotations": "Message2"
+//         }
+//     ]
+// }
 
 runAction();
