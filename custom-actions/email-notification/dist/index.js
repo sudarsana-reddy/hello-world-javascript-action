@@ -22473,6 +22473,7 @@ async function getJobData() {
         })
     };
     console.log("jobStatuses:", JSON.stringify(jobStatuses, null, 2));
+    return jobStatuses;
 }
 
 module.exports = { getJobData };
