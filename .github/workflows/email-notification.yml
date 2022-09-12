@@ -25,6 +25,9 @@ jobs:
       uses: actions/upload-artifact@v3.1.0
       with: 
         name: test-files
+        path: |
+          "a.txt"
+          "test/b.txt"
 
   email-notification:
     runs-on: ubuntu-latest
