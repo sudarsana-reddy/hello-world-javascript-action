@@ -19,6 +19,7 @@ async function getJobData() {
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
     let jobsWithConclusions = jobs.filter(job => job.conclusion !== null);
+    console.log(`Jobs With Conclusions: ${jobsWithConclusions.length}`);
 
     let jobStatuses =[];
 
@@ -53,7 +54,7 @@ async function getJobData() {
             "annotations": annotatiionMessages
         })
     };
-    console.log(JSON.stringify(jobStatuses, null, 2));
+    console.log("jobStatuses:", JSON.stringify(jobStatuses, null, 2));
 }
 
 module.exports = { getJobData };

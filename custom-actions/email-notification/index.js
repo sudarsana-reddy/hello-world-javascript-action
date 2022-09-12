@@ -116,7 +116,8 @@ async function getEmailContent(workflowRunURL) {
 async function getFailedJobs() {
     let resultRows = "";
     let jobData = await jobUtils.getJobData();
-    for (let job of jobData) {
+    for (let index=0; index < jobData.length; index++) {
+        let job = jobData[index];
         let trData = `<tr>
                         <td align="center" valign="top">${job.name}</td>
                         <td align="center" valign="top">${job.annotations}</td>
