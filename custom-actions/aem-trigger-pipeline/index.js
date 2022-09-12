@@ -12,6 +12,8 @@ console.log(`SHOULD_TRIGGER_PIPELINE: ${SHOULD_TRIGGER_PIPELINE}`);
 const AEM_DEPLOYMENT_WAIT_TIME = parseInt(core.getInput('AEM_DEPLOYMENT_WAIT_TIME')); //default 10 MINUTES   
 const IDLE_TIME_INTERVAL = parseInt(core.getInput("IDLE_TIME_INTERVAL"));// deafult 2 minutes
 
+const WAIT_TIME_FOR_AEM_AUTO_TRIGGER_PIPELINE = 10 * 60 * 1000 //In milli seconds
+
 const CONTEXT = 'aio-cloudmanager-github-actions';
 
 let imsConfig = require(AEM_JSON_FILE_PATH);
@@ -47,10 +49,25 @@ async function triggerPipeline() {
 }
 
 async function getCurrentExecution() {
-    console.log("Getting current execution");
-    const response = await client.getCurrentExecution(PROGRAMID, PIPELINEID);
-    console.log(response);
-    return response.id;
+    let idle_time = 2 * 60 * 1000;
+    let errorMessage = "";
+    for (let wait_time = 0; wait_time <= WAIT_TIME_FOR_AEM_AUTO_TRIGGER_PIPELINE;) {
+        await new Promise(resolve => setTimeout(resolve, idle_time)); //sleep for the specified idle time       
+        try {
+            console.log("Getting current execution");
+            const response = await client.getCurrentExecution(PROGRAMID, PIPELINEID);
+            console.log(response);
+            return response.id;
+        } catch (error) {            
+            errorMessage = error.message;
+            console.log(errorMessage);           
+        }
+        wait_time += idle_time;
+        if(wait_time <= WAIT_TIME_FOR_AEM_AUTO_TRIGGER_PIPELINE){
+            console.log("Retrying to get the currently executing pipeline");
+        }
+    }
+    throw core.setFailed(errorMessage) ;
 }
 
 async function waitForPipelineToComplete(executionId) {
@@ -69,13 +86,13 @@ async function waitForPipelineToComplete(executionId) {
         console.log(`pipelineStatus: ${pipelineStatus}`);
 
         let statusTable = [];
-        
+
         statusTable.push({
             'Step': 'Pipline Status',
             'Status': pipelineStatus
         });
 
-        for (let step of executionResponse["_embedded"].stepStates){
+        for (let step of executionResponse["_embedded"].stepStates) {
             statusTable.push({
                 'Step': step.action,
                 "Status": step.status
