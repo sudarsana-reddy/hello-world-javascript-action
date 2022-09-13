@@ -33,11 +33,14 @@ jobs:
         exit 1;
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     steps:
-      - name: javascript inline step
-        run: |
-          core.setFailed("Wrong script");    
+    - name: Upload files
+      uses: actions/upload-artifact@v3.1.0
+      with: 
+        name: test-files
+        path: |
+          a.txt            
 
   email-notification:
     runs-on: ubuntu-latest
