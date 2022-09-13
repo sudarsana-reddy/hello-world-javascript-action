@@ -121,8 +121,8 @@ async function getFailedJobs() {
         let job = jobData[index];
         let trData = `<tr>
                         <td align="center" valign="top">${job.name}</td>
-                        <td align="center" valign="top">${job.annotations}</td>
                         <td align="center" valign="top">${job.failedSteps}</td>
+                        <td align="center" valign="top">${job.annotations}</td>                       
                     </tr>`;
 
         resultRows += trData + "\n";
