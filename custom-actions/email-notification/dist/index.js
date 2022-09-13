@@ -22436,7 +22436,7 @@ async function getJobData() {
 
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
-    let jobsWithConclusions = jobs.filter(job => job.conclusion !== null);
+    let jobsWithConclusions = jobs.filter(job => job.conclusion === 'failure');
     console.log(`jobsWithConclusions: ${JSON.stringify(jobsWithConclusions, null, 2)}`);
     
     let jobStatuses =[];

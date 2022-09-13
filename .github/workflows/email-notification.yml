@@ -29,7 +29,7 @@ jobs:
     - name: Failed Step
       run: |
         echo "Failing intetionally"
-        # exit 1;
+        exit 1;
     
 
   email-notification:
