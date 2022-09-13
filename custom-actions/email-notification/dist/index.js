@@ -22432,9 +22432,7 @@ async function getJobData() {
         owner: context.repo.owner,
         repo: context.repo.repo,
         run_id: context.runId
-    })
-
-    console.log(`Response: ${JSON.stringify(response, null, 2)}`);
+    })   
 
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
@@ -22488,8 +22486,7 @@ async function getJobData() {
             "annotations": annotatiionMessages,
             "failedSteps": steps
         })
-    };
-    console.log("jobStatuses:", JSON.stringify(jobStatuses, null, 2));
+    };   
     return {
         "workflowStatus": workflowStatus,
         "jobStatuses": jobStatuses
@@ -22829,8 +22826,8 @@ async function getEmailContent(workflowRunURL) {
 
 async function getFailedJobs() {
     let resultRows = "";
-    let workflowData = await jobUtils.getJobData();    
-    console.log(`workflowData: ${JSON.stringify(jobData, null, 2)}`);
+    let workflowData = await jobUtils.getJobData();
+    console.log(`workflowData: ${JSON.stringify(workflowData, null, 2)}`);
     status = workflowData.workflowStatus;
     let jobData = workflowData.jobStatuses;
     for (let index=0; index < jobData.length; index++) {

@@ -115,8 +115,8 @@ async function getEmailContent(workflowRunURL) {
 
 async function getFailedJobs() {
     let resultRows = "";
-    let workflowData = await jobUtils.getJobData();    
-    console.log(`workflowData: ${JSON.stringify(jobData, null, 2)}`);
+    let workflowData = await jobUtils.getJobData();
+    console.log(`workflowData: ${JSON.stringify(workflowData, null, 2)}`);
     status = workflowData.workflowStatus;
     let jobData = workflowData.jobStatuses;
     for (let index=0; index < jobData.length; index++) {
