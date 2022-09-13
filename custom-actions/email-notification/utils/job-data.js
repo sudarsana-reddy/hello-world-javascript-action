@@ -16,8 +16,15 @@ async function getJobData() {
         run_id: context.runId
     })
 
+    console.log(`Response: ${JSON.stringify(response, null, 2)}`);
+
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
+
+    let failedJobs = jobs.filter(job => job.conclusion === 'failure');
+    let workflowStatus = failedJobs.length == 0 ? "success" : "failure";
+    console.log(`workflowStatus: ${workflowStatus}`);
+
     let jobsWithConclusions = jobs.filter(job => job.conclusion !== null);
     console.log(`jobsWithConclusions: ${JSON.stringify(jobsWithConclusions, null, 2)}`);
 
@@ -65,7 +72,12 @@ async function getJobData() {
         })
     };
     console.log("jobStatuses:", JSON.stringify(jobStatuses, null, 2));
-    return jobStatuses;
+    return {
+        "workflowStatus": workflowStatus,
+        "jobStatuses": jobStatuses
+    };
 }
+
+
 
 module.exports = { getJobData };

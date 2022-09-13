@@ -58,7 +58,7 @@ jobs:
     - name: Send email notiofication
       uses: ./custom-actions/email-notification
       with:
-        STATUS: ${{ job.status }}
+        STATUS: "Failure"
         SMTP_HOST: "smtp-mail.outlook.com"
         SMTP_PORT: "587"
         SMTP_USERNAME: "asreddy@live.com"

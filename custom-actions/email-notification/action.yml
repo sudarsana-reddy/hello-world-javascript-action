@@ -9,6 +9,7 @@ inputs:
   STATUS: 
     description: 'Job Status'
     required: true
+    default: "Failure"
 
   SMTP_HOST: 
     description: 'SMTP Host'
