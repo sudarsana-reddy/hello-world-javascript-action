@@ -29,6 +29,7 @@ jobs:
     - name: Failed Step
       run: |
         echo "Failing intetionally"
+        echo "::error  'Failed Step'"
         exit 1;
     
 
