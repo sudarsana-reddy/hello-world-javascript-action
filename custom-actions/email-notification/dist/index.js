@@ -22436,7 +22436,7 @@ async function getJobData() {
 
     let jobs = response.data.jobs;
     console.log("Jobs: ", JSON.stringify(jobs, null, 2));
-    let jobsWithConclusions = jobs.filter(job => job.conclusion === 'failure');
+    let jobsWithConclusions = jobs.filter(job => job.conclusion !== null);
     console.log(`jobsWithConclusions: ${JSON.stringify(jobsWithConclusions, null, 2)}`);
 
     let jobStatuses = [];
@@ -22477,6 +22477,7 @@ async function getJobData() {
 
         jobStatuses.push({
             "name": job.name,
+            "status": job.conclusion,
             "annotations": annotatiionMessages,
             "failedSteps": steps
         })
@@ -22822,6 +22823,7 @@ async function getFailedJobs() {
         let job = jobData[index];
         let trData = `<tr>
                         <td align="center" valign="top">${job.name}</td>
+                        <td align="center" valign="top">${job.status}</td>
                         <td align="center" valign="top">${job.failedSteps}</td>
                         <td align="center" valign="top">${job.annotations}</td>                       
                     </tr>`;
