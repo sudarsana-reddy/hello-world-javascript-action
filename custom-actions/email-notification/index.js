@@ -122,6 +122,7 @@ async function getFailedJobs() {
         let trData = `<tr>
                         <td align="center" valign="top">${job.name}</td>
                         <td align="center" valign="top">${job.annotations}</td>
+                        <td align="center" valign="top">${job.steps}</td>
                     </tr>`;
 
         resultRows += trData + "\n";
@@ -129,18 +130,5 @@ async function getFailedJobs() {
 
     return resultRows;
 }
-
-// async function getJobData() {
-//     return [
-//         {
-//             "name": "Job1",
-//             "annotations": "Message1"
-//         },
-//         {
-//             "name": "Job2",
-//             "annotations": "Message2"
-//         }
-//     ]
-// }
 
 runAction();
