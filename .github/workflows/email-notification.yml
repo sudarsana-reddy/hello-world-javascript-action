@@ -30,7 +30,7 @@ jobs:
       run: |
         echo "Failing intetionally"
         echo "::error  'Failed Step'"
-        exit 1;
+        # exit 1;
 
   deploy:
     runs-on: ubuntu-latest    
