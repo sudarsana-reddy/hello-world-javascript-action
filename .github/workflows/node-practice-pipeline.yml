@@ -1,0 +1,19 @@
+name: node-practice-pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: npm install
+        run: |
+          npm install
+      - name: run job
+        run:
+          cd custom-actions/node-practice
+          node main.js
+        env:
+          DRY_RUN: true
+          INPUT_REPOS: abcd,efgh  
