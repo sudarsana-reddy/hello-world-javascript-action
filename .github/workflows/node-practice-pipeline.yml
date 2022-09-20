@@ -12,8 +12,9 @@ jobs:
 
       - name: npm install
         run: |
+          cd custom-actions/node-practice
           npm install
-          
+
       - name: run job
         run:
           cd custom-actions/node-practice
