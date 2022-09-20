@@ -18,7 +18,7 @@ jobs:
       - name: run job
         run: |
           cd custom-actions/node-practice
-          npm run execute
+          npm run start
         shell: bash
         env:
           DRY_RUN: true
