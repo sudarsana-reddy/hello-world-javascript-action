@@ -18,7 +18,7 @@ jobs:
       - name: run job
         run:
           cd custom-actions/node-practice
-          node main.js
+          npm run execute
         env:
           DRY_RUN: true
-          INPUT_REPOS: abcd,efgh  
+          INPUT_REPOS: abcd,efgh
