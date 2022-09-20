@@ -16,7 +16,7 @@ jobs:
           npm install
 
       - name: run job
-        run:
+        run: |
           cd custom-actions/node-practice
           npm run execute
         shell: bash
