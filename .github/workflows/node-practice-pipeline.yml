@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       DRY_RUN:
-        description: "Flag to set dry run or actual run"
+        description: "DRY_RUN:Flag to set dry run or actual run"
         type: boolean
         required: false
       INPUT_REPOS:
-        description: "Comma(,) separated list of targeted repos or 'ALL' for all repos in the ord"
+        description: "INPUT_REPOS: Comma(,) separated list of targeted repos or 'ALL' for all repos in the ord"
         type: string
         required: true
       DAYS_OLDER_THAN:
-        description: "The job will delete the artifacts older than the set valus of this input"
+        description: "DAYS_OLDER_THAN: The job will delete the artifacts older than the set valus of this input. Default is 30 days."
         type: string
         required: false
 
