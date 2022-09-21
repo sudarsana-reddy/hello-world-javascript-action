@@ -2,6 +2,20 @@ name: node-practice-pipeline
 
 on:
   workflow_dispatch:
+    inputs:
+      DRY_RUN:
+        description: "Flag to set dry run or actual run"
+        type: boolean
+        required: false
+      INPUT_REPOS:
+        description: "Comma(,) separated list of targeted repos or 'ALL' for all repos in the ord"
+        type: string
+        required: true
+      DAYS_OLDER_THAN:
+        description: "The job will delete the artifacts older than the set valus of this input"
+        type: string
+        required: false
+
 
 jobs:
   validate:
@@ -21,6 +35,6 @@ jobs:
           npm run start
         shell: bash
         env:
-          DRY_RUN: true
-          INPUT_REPOS: abcd,efgh
+          DRY_RUN: ${{ inputs.DRY_RUN }}
+          INPUT_REPOS: ${{ inputs.INPUT_REPOS }}
           TOKEN: ${{ secrets.TOKEN }}
