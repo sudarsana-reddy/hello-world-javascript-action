@@ -24,7 +24,7 @@ export function table(headers: ToString[], align: ToString[], ...rows: ToString[
 }
 
 export function tableEscape(content: ToString): string {
-  return content.toString().replace(/'/g, "''").replace('|', '\\|')
+  return content.toString().replace('|', '\\|')
 }
 
 export function fixEol(text?: string): string {
