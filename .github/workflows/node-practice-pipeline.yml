@@ -8,14 +8,13 @@ on:
         type: boolean
         required: false
       INPUT_REPOS:
-        description: "INPUT_REPOS: Comma(,) separated list of targeted repos or 'ALL' for all repos in the ord"
+        description: "INPUT_REPOS: Comma(,) separated list of targeted repos or 'ALL' for all repos in the org"
         type: string
         required: true
       DAYS_OLDER_THAN:
         description: "DAYS_OLDER_THAN: The job will delete the artifacts older than the set valus of this input. Default is 30 days."
         type: string
         required: false
-
 
 jobs:
   validate:
