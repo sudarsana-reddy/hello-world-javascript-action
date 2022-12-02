@@ -1,0 +1,26 @@
+name: 'Jira App List'
+description: 'Jira App List'
+inputs:
+  JIRA_REST_API_URL:  
+    description: 'Jira Rest URL'
+    required: true   
+
+  JIRA_ISSUE_KEY:  
+    description: 'Jira Issue Key'
+    required: true    
+
+  JIRA_USERNAME: 
+    description: 'Jira Username'
+    required: true
+    
+  JIRA_API_KEY:
+    description: "Jira API Key"
+    required: true    
+
+  JIRA_APP_JSON_FILE:
+    description: "Jira App Json File"
+    required: true       
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
