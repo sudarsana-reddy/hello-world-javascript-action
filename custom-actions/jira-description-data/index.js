@@ -28,6 +28,8 @@ async function runAction() {
 }
 
 async function getAppsInfo(json) {
+    let pipelineKey = json.fields.summary.split(":")[0];
+    console.log(pipelineKey);
     let apps = json.fields.description.content.filter(x => x.type === "table");
     let headersData = apps[0].content.filter(x => x.content.filter(y => y.type === "tableHeader").length > 0);
     let headers = [];
@@ -52,6 +54,7 @@ async function getAppsInfo(json) {
                 }
             }
         }
+        appInfo["pipelineKey"] = `${pipelineKey}-${appInfo["applicationName"]}`;
         appList.push(appInfo);
     }
 
