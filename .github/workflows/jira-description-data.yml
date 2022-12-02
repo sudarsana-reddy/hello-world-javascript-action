@@ -16,6 +16,4 @@ jobs:
           JIRA_ISSUE_KEY: "PEG-8"
           JIRA_USERNAME: ${{secrets.JIRA_USERNAME}}
           JIRA_API_KEY: ${{secrets.JIRA_API_KEY}}
-          JIRA_APP_JSON_FILE: "jira-pega-apps.json"
-
-          
+          JIRA_APP_JSON_FILE: "jira-pega-apps.json"         
