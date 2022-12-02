@@ -1,0 +1,26 @@
+name: "Trigger Pega Pipeline"
+description: 'Pega Javascript Action'
+inputs:
+  PEGA_DM_REST_URL:
+    description: 'Pega Rest URL'
+    required: true   
+
+  PEGA_DM_CLIENT_ID:
+    description: 'Pega Cleint Id'
+    required: true    
+
+  PEGA_DM_CLIENT_SECRET:
+    description: 'Pega Client Secret'
+    required: true
+
+  JIRA_PEGA_APP_DATA_JSON:
+    description: "Json file with Pega App Data"
+    required: true
+
+  PEGA_PIPELINE_MAPPING_JSON:
+    description: "Json file with App to Pega Pipeline mapping"
+    required: true
+  
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
