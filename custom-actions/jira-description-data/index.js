@@ -7,7 +7,7 @@ const JIRA_REST_API_URL = core.getInput('JIRA_REST_API_URL') ;
 const JIRA_ISSUE_KEY = core.getInput('JIRA_ISSUE_KEY') ;
 const JIRA_USERNAME = core.getInput('JIRA_USERNAME') ;
 const JIRA_API_KEY = core.getInput('JIRA_API_KEY');
-const JIRA_APP_JSON_FILE = core.getInput('JIRA_APP_JSON_FILE');
+const JIRA_APP_JSON_FILE = core.getInput('JIRA_APP_JSON_FILE') || "jira-pega-apps.json";
 const URL = `${JIRA_REST_API_URL}/rest/api/3/issue/${JIRA_ISSUE_KEY}?fields=description,summary`;
 
 async function runAction(){
