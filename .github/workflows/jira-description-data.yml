@@ -16,4 +16,11 @@ jobs:
           JIRA_ISSUE_KEY: "PEG-8"
           JIRA_USERNAME: ${{secrets.JIRA_USERNAME}}
           JIRA_API_KEY: ${{secrets.JIRA_API_KEY}}
-          JIRA_APP_JSON_FILE: "jira-pega-apps.json"         
+          JIRA_APP_JSON_FILE: "jira-pega-apps.json"
+          
+      - name: Upload jira app json file
+        uses: actions/upload-artifact@v3
+        with:         
+          name: jira-pega-apps.json
+          # A file, directory or wildcard pattern that describes what to upload
+          path: jira-pega-apps.json
