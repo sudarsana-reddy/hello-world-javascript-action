@@ -1,0 +1,21 @@
+name: jira-descriotion-data
+
+on: [workflow_dispatch]
+
+jobs:
+  jira-descriotion-data:
+    runs-on: ubuntu-latest   
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get Jira Desciption Data
+        id: jiraData
+        uses: ./custom-actions/jira-descriotion-data
+        with:
+          JIRA_REST_API_URL: ${{secrets.JIRA_REST_API_URL}}
+          JIRA_ISSUE_KEY: "PEG-8"
+          JIRA_USERNAME: ${{secrets.JIRA_USERNAME}}
+          JIRA_API_KEY: ${{secrets.JIRA_API_KEY}}
+          JIRA_APP_JSON_FILE: "jira-pega-apps.json"
+
+          
