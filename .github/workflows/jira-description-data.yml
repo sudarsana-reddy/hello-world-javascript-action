@@ -1,16 +1,16 @@
-name: jira-descriotion-data
+name: jira-description-data
 
 on: [workflow_dispatch]
 
 jobs:
-  jira-descriotion-data:
+  jira-description-data:
     runs-on: ubuntu-latest   
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Get Jira Desciption Data
         id: jiraData
-        uses: ./custom-actions/jira-descriotion-data
+        uses: ./custom-actions/jira-description-data
         with:
           JIRA_REST_API_URL: ${{secrets.JIRA_REST_API_URL}}
           JIRA_ISSUE_KEY: "PEG-8"
