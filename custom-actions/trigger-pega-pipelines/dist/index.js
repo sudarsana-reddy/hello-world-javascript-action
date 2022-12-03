@@ -12107,7 +12107,7 @@ async function updatePipeline(pipelineId, app) {
     let response = await fetch(url, config);
     let data = await response.json();
     console.log(JSON.stringify(data, null, 2));
-    if(data.errors.length > 0){
+    if(data.errors && data.errors.length > 0){
         deploymentFailedPipelines.push(data.pipelineName);
         let errorMessage = `${data.applicationName} - Update Pipleine Failed\n`;
 
@@ -12131,7 +12131,7 @@ async function triggerPipeline(pipelineId) {
     let response = await fetch(url, config);
     let data = await response.json();
     console.log(JSON.stringify(data, null, 2));
-    if(data.errors.length > 0){
+    if(data.errors && data.errors.length > 0){
         deploymentFailedPipelines.push(data.pipelineName);
         let errorMessage = `${data.applicationName} - Trigger Pipleine Failed\n`;
 
