@@ -12031,7 +12031,9 @@ const PEGA_PIPELINE_MAPPING_JSON = core.getInput('PEGA_PIPELINE_MAPPING_JSON') |
 
 const index_URL = `${PEGA_DM_REST_URL}/oauth2/v1/token`;
 
+let deploymentFailedPipelines = [];
 async function runAction() {
+   
     let hasErrors = false;
     try {
         let appListJson = await getAppListInfo();
@@ -12044,6 +12046,7 @@ async function runAction() {
                 await updatePipeline(pipelineId, app);
                 await triggerPipeline(pipelineId);
             } catch (e) {
+
                 console.log(e.message);
                 hasErrors = true;
             }
@@ -12054,12 +12057,16 @@ async function runAction() {
         core.setFailed(error.message);
     }
 
+    if(deploymentFailedPipelines.length > 0){
+        core.warning("Deployment Failed for the following pipelines");
+        core.warning(deploymentFailedPipelines);
+    }
+
     if (hasErrors) {
         let errorMessage = "There are some errors, please take a look"
         console.log(errorMessage);
         core.setFailed(errorMessage);
     }
-
 }
 
 async function updatePipeline(pipelineId, app) {
@@ -12100,6 +12107,13 @@ async function updatePipeline(pipelineId, app) {
     let response = await fetch(url, config);
     let data = await response.json();
     console.log(JSON.stringify(data, null, 2));
+    if(data.errors.length > 0){
+        deploymentFailedPipelines.push(data.pipelineName);
+        let errorMessage = `${data.applicationName} - Update Pipleine Failed\n`;
+
+        data.errors.forEach(error => errorMessage = errorMessage + `${error.errorText}\n`);
+        throw new Error(errorMessage);
+    }
 }
 
 async function triggerPipeline(pipelineId) {
@@ -12117,6 +12131,13 @@ async function triggerPipeline(pipelineId) {
     let response = await fetch(url, config);
     let data = await response.json();
     console.log(JSON.stringify(data, null, 2));
+    if(data.errors.length > 0){
+        deploymentFailedPipelines.push(data.pipelineName);
+        let errorMessage = `${data.applicationName} - Trigger Pipleine Failed\n`;
+
+        data.errors.forEach(error => errorMessage = errorMessage + `${error.errorText}\n`);
+        throw new Error(errorMessage);
+    }
 }
 
 async function getPipelineData(pipelineId) {

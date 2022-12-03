@@ -33,6 +33,4 @@ jobs:
           PEGA_DM_CLIENT_ID: ${{ secrets.PEGA_DM_CLIENT_ID }}
           PEGA_DM_CLIENT_SECRET: ${{ secrets.PEGA_DM_CLIENT_SECRET }}
           JIRA_PEGA_APP_DATA_JSON: "jira-pega-apps.json"
-          PEGA_PIPELINE_MAPPING_JSON: "pega-pipilne-mappings.json"
-
-              
+          PEGA_PIPELINE_MAPPING_JSON: "pega-pipilne-mappings.json"              
