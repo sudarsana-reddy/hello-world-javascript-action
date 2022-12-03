@@ -12046,8 +12046,7 @@ async function runAction() {
                 await updatePipeline(pipelineId, app);
                 await triggerPipeline(pipelineId);
             } catch (e) {
-
-                console.log(e.message);
+                core.warning(e.message);
                 hasErrors = true;
             }
         };
