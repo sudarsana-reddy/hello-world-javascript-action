@@ -22,10 +22,11 @@ async function runAction() {
         let appListJson = await getAppListInfo();
         let pipelineMappings = await getPipelinesInfo();
         for (let app of appListJson) {
+            let pipelineDetails = {
+                "applicationName": app.applicationName
+            }
             try {
-                let pipelineDetails = {
-                    "applicationName": app.applicationName
-                }
+                
                 let pipelineId = pipelineMappings[app.pipelineKey];
                 console.log(`pipelineId:${pipelineId}`);
                 pipelineDetails["pieplineId"] = pipelineId;
@@ -33,13 +34,16 @@ async function runAction() {
                 let data = await triggerPipeline(pipelineId);
                 pipelineDetails["deploymentId"] = data.deploymentID;
                 pipelineDetails["deploymentStatus"] = data.status;
-                deploymentIds.push(pipelineDetails);
+               
             } catch (e) {
                 core.warning(e.message);
                 hasErrors = true;
                 if( pipelineDetails.deploymentId === undefined){
                     pipelineDetails.deploymentStatus = "Failed to Trigger Deployment";
                 }
+            }
+            finally{
+                deploymentIds.push(pipelineDetails);
             }
         };
 
@@ -59,9 +63,7 @@ async function runAction() {
             let errorMessage = "There are some errors, please take a look"
             console.log(errorMessage);
             core.setFailed(errorMessage);
-        }
-
-        
+        }        
     }
 }
 
