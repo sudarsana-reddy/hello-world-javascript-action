@@ -37,6 +37,9 @@ async function runAction() {
             } catch (e) {
                 core.warning(e.message);
                 hasErrors = true;
+                if( pipelineDetails.deploymentId === undefined){
+                    pipelineDetails.deploymentStatus = "Failed to Trigger Deployment";
+                }
             }
         };
 
