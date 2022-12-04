@@ -32,8 +32,9 @@ async function addCommentsToJiraIssue(commentsJson){
     };
 
     let response = await fetch(URL, config);
-    // let data = await response.json();
-    console.log(response.status);    
+    let data = await response.json();
+    console.log(`data: ${data}`);
+    console.log(`Status: ${response.status}`);    
 }
 
 async function getPipelineStatusJsonData() {
