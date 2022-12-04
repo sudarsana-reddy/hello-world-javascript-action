@@ -31,7 +31,7 @@ async function runAction() {
                 pipelineDetails["pieplineId"] = pipelineId;
                 await updatePipeline(pipelineId, app);
                 let data = await triggerPipeline(pipelineId);
-                pipelineDetails["deploymentId"] = data.deploymentId;
+                pipelineDetails["deploymentId"] = data.deploymentID;
                 pipelineDetails["deploymentStatus"] = data.status;
                 deploymentIds.push(pipelineDetails);
             } catch (e) {
