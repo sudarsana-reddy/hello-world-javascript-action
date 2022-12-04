@@ -19,7 +19,12 @@ inputs:
 
   PEGA_PIPELINE_MAPPING_JSON:
     description: "Json file with App to Pega Pipeline mapping"
-    required: true
+    required: false
+
+  PEGA_DEPLOYMENT_STATUS_JSON:
+    description: "Json file with Pega deployment status"
+    required: false
+
   
 runs:
   using: 'node16'
