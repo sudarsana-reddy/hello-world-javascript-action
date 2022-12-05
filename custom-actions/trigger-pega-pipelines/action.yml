@@ -25,6 +25,9 @@ inputs:
     description: "Json file with Pega deployment status"
     required: false
 
+  JIRA_ISSUE_KEY:  
+    description: 'Jira Issue Key'
+    required: true 
   
 runs:
   using: 'node16'

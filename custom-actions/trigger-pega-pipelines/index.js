@@ -10,6 +10,7 @@ const PEGA_DM_CLIENT_SECRET = core.getInput('PEGA_DM_CLIENT_SECRET');
 const JIRA_PEGA_APP_DATA_JSON = core.getInput('JIRA_PEGA_APP_DATA_JSON') || "jira-pega-apps.json";
 const PEGA_PIPELINE_MAPPING_JSON = core.getInput('PEGA_PIPELINE_MAPPING_JSON') || "pega-pipeilne-mappings.json";
 const PEGA_DEPLOYMENT_STATUS_JSON = core.getInput('PEGA_DEPLOYMENT_STATUS_JSON') || "pega-deployment-status.json";
+const JIRA_ISSUE_KEY = core.getInput('JIRA_ISSUE_KEY');
 
 const URL = `${PEGA_DM_REST_URL}/oauth2/v1/token`;
 
@@ -129,6 +130,10 @@ async function triggerPipeline(pipelineId) {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${access_token}`
+        },
+
+        body: {
+            'description': `Deploying as per ${JIRA_ISSUE_KEY}`
         }
     };
 
