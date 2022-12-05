@@ -12151,9 +12151,9 @@ async function triggerPipeline(pipelineId) {
             'Authorization': `Bearer ${access_token}`
         },
 
-        body: {
+        body: JSON.stringify({
             'description': `Deploying as per ${JIRA_ISSUE_KEY}`
-        }
+        })
     };
 
     let response = await fetch(url, config);
