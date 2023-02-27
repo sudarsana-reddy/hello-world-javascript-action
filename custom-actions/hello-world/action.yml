@@ -5,6 +5,11 @@ inputs:
     description: 'Who to greet'
     required: true
     default: 'World'
+
+  COMMIT_ID:  # id of commit
+    description: 'The aem git commit id'
+    required: true
+    
 outputs:
   time: # id of output
     description: 'The time we greeted you'
